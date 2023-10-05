@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "apifake": "json-server --watch db.json --port 3001",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -11,6 +12,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "json-server": "^0.17.4",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
