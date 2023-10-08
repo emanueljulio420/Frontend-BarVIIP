@@ -1,9 +1,38 @@
 {
   "usuario": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "__v_isShallow": false,
+      "dep": {
+        "w": 0,
+        "n": 0
+      },
+      "__v_isRef": true,
+      "_rawValue": {
+        "nombres": "holaaa",
+        "apellidos": "sdasdasd",
+        "tipo": "Cliente",
+        "correo": "sdsada@dada.com",
+        "contrasena": "sebastian",
+        "conficontrasena": "sebastian"
+      },
+      "_value": {
+        "nombres": "holaaa",
+        "apellidos": "sdasdasd",
+        "tipo": "Cliente",
+        "correo": "sdsada@dada.com",
+        "contrasena": "sebastian",
+        "conficontrasena": "sebastian"
+      },
+      "id": 1
+    },
+    {
+      "nombres": "Sebas",
+      "apellidos": "Gonzalez",
+      "tipo": "Cliente",
+      "correo": "sebas@gmail.com",
+      "contrasena": "sebastian",
+      "conficontrasena": "sebastian",
+      "id": 2
     }
   ]
 }
