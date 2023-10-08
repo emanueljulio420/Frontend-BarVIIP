@@ -33,6 +33,24 @@
       "contrasena": "sebastian",
       "conficontrasena": "sebastian",
       "id": 2
+    },
+    {
+      "nombres": "aaaaaaaaaaaaaa",
+      "apellidos": "aaassssssssssssssssss",
+      "tipo": "Barbero",
+      "correo": "sadadsa@gmail,com",
+      "contrasena": "sebastian",
+      "conficontrasena": "sebastian",
+      "id": 3
+    },
+    {
+      "nombres": "sssssssssssss",
+      "apellidos": "sssaaaaaaaaaaaaa",
+      "tipo": "Barbero",
+      "correo": "sasa@gmail.cpm",
+      "contrasena": "sebastian",
+      "conficontrasena": "sebastian",
+      "id": 4
     }
   ]
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-dialog v-model="open" width="50%" persistent>
+        <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
                 <h1 class="my-6">Registrarme</h1>
                 <form class="mx-5" action="javascript:void(0)" @submit="guardarUsuario">
@@ -16,7 +16,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-autocomplete v-model="usuarioNuevo.tipo" :rules="[rules.required]" :items="Tipos_usu"
-                                    label="Tipo de usuario" placeholder="Select..." ></v-autocomplete>
+                                    label="Tipo de usuario" placeholder="Select..."></v-autocomplete>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="usuarioNuevo.correo" :rules="[rules.required, rules.email]"
@@ -57,6 +57,8 @@
 </template>
 <script setup>
 import axios from 'axios';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 const open = ref()
@@ -82,12 +84,21 @@ const guardarUsuario = () => {
         axios.post("http://localhost:3001/usuario", usuarioNuevo.value)
             .then(() => {
                 closeDialog();
+                Swal.fire(
+                    'Cuenta creada con exito!',
+                    'success'
+                )
             })
             .catch(error => {
                 console.error(error);
             });
     } else {
-        alert("Contraseñas incorrectas");
+        Swal.fire({
+            icon: 'error',
+            title: 'Contraseñas incorrectas',
+            text: 'Las contraseñas no coinciden. Por favor, intenta de nuevo.',
+            appendTo: document.getElementById('crearUsuarioDialog')
+        });
     }
 };
 
