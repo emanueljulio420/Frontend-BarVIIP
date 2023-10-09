@@ -1,54 +1,132 @@
 <template>
     <div>
-        <v-img class="mx-auto my-6" max-width="228" src="https://th.bing.com/th/id/OIG.eR6aHfNHV3MX4wohNPt6?pid=ImgGn"/>
-        <v-card class="my-5 text-center mx-auto" max-width="400">
-            <v-card-title class="my-3">
-                <h2>Iniciar sesión</h2>
-            </v-card-title>
-            <form class="mx-5">
-                <v-text-field :rules="[rules.required, rules.email]" label="Correo" variant="outlined"/>
-                <v-text-field :rules="[rules.required]" label="Contraseña" placeholder="Contraseña" variant="outlined" required/>
-            </form>
-                <v-card-actions class="mx-3 my-2">
-                    <v-btn class="text-none" color="#616161" variant="flat">
-                        Iniciar sesión
-                    </v-btn>
-                    <v-spacer />
-                    <v-btn border class="text-none" prepend-icon="mdi-check" variant="text" @click="openDialog()">
-                        Crear perfil
-                    </v-btn>
-                </v-card-actions>
-        </v-card>
-        <usuarios-crearUsuario v-if="openD" :dialog="openD" @close="closeDialog"/>
+        <v-toolbar class="toolbar primary" dark prominent height="50%">
+            <v-app-bar-nav-icon class="white"></v-app-bar-nav-icon>
+
+            <v-toolbar-title>
+                <v-img width="10vh" src="https://cdn-icons-png.flaticon.com/512/595/595777.png">
+                </v-img>
+
+            </v-toolbar-title>
+            <h1>BarVIIP</h1>
+
+            <v-spacer></v-spacer>
+            <v-toolbar-content>
+                <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
+                <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink>
+                    <NuxtLink to="/inicio" class="white toolbar-link"><svg-icon type="mdi" :path="path">Iniciar sesion</svg-icon></Nuxtlink> 
+            </v-toolbar-content>
+
+            <v-btn icon class="white">
+                <v-icon>mdi-export</v-icon>
+            </v-btn>
+        </v-toolbar>
+
+    <div class="container">
+        <div class="word-container">
+            <transition name="fade">
+                <div class="word">{{ currentWord }}</div>
+            </transition>
+        </div>
     </div>
+    </div>
+       
 </template>
 <script setup>
+import { ref, onMounted } from 'vue';
 
-const openD = ref(false);
+const words = ['Corte de cabello', 'Arreglo de barba', 'Barberos profesionales', 'Limpieza Facial']; // Lista de palabras
+const currentWordIndex = ref(0);
 
-const openDialog = () =>{
-    openD.value = true;
-};
+onMounted(() => {
+  setInterval(() => {
+    currentWordIndex.value = (currentWordIndex.value + 1) % words.length;
+  }, 3000); // Cambia la palabra cada 3 segundos (3000 milisegundos)
+});
 
-const closeDialog = () =>{
-    openD.value = false;
-;}
-
+const currentWord = computed(() => {
+  return words[currentWordIndex.value];
+});
 </script>
+<style scoped>
+.toolbar.primary {
+    background-color: black;
+    /* Establece el fondo del toolbar en negro */
+}
 
-<script>
-export default {
-    data() {
-        return {
-            email: '',
-            rules: {
-                required: value => !!value || 'Campo necesaro.',
-                email: value => {
-                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    return pattern.test(value) || 'Correo invalido.'
-                },
-            },
-        }
-    },
-};
-</script>
+.white {
+    color: white;
+    text-decoration: none;
+}
+
+
+.toolbar-link {
+    margin-right: 20px;
+    /* Ajusta la cantidad de espacio entre los enlaces según tus necesidades */
+}
+
+.inicio {
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* Cubre todo el elemento, manteniendo la relación de aspecto */
+    background-attachment: fixed;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    background-image: url("https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+
+h1 {
+    color: white;
+    /* Establece el color del texto */
+    text-align: center;
+    /* Centra el texto horizontalmente */
+}
+
+.word-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+}
+
+.word {
+    font-size: 4em;
+    /* Tamaño grande de la palabra */
+    opacity: 0;
+    animation: fadeInOut 3s infinite;
+    color: white;
+    /* Animación de desvanecimiento */
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    80%{
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+</style>
