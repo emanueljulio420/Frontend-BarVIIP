@@ -14,7 +14,7 @@
             <v-toolbar-content>
                 <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
                 <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink>
-                    <NuxtLink to="/inicio" class="white toolbar-link"><svg-icon type="mdi" :path="path">Iniciar sesion</svg-icon></Nuxtlink> 
+                <NuxtLink to="/inicio" class="white toolbar-link"><svg-icon type="mdi" :path="path"></svg-icon></Nuxtlink> 
             </v-toolbar-content>
 
             <v-btn icon class="white">
@@ -48,6 +48,24 @@ const currentWord = computed(() => {
   return words[currentWordIndex.value];
 });
 </script>
+<script>
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiAccount } from '@mdi/js';
+
+export default {
+	name: "my-cool-component",
+
+	components: {
+		SvgIcon
+	},
+
+	data() {
+		return {
+	  		path: mdiAccount,
+		}
+	}
+}
+</script>
 <style scoped>
 .toolbar.primary {
     background-color: black;
@@ -62,6 +80,7 @@ const currentWord = computed(() => {
 
 .toolbar-link {
     margin-right: 20px;
+
     /* Ajusta la cantidad de espacio entre los enlaces según tus necesidades */
 }
 

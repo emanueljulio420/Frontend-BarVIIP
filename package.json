@@ -19,6 +19,8 @@
     "vuetify-nuxt-module": "^0.5.13"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.3.67",
     "axios": "^1.5.1",
     "sweetalert2": "^11.7.32"
   }
