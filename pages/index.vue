@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar class="toolbar primary" dark prominent height="50%">
+        <!-- <v-toolbar class="toolbar primary" dark prominent height="50%">
             <v-app-bar-nav-icon class="white"></v-app-bar-nav-icon>
 
             <v-toolbar-title>
@@ -20,7 +20,7 @@
             <v-btn icon class="white">
                 <v-icon>mdi-export</v-icon>
             </v-btn>
-        </v-toolbar>
+        </v-toolbar> -->
 
     <div class="container">
         <div class="word-container">
@@ -66,86 +66,8 @@ export default {
 	}
 }
 </script>
-<style scoped>
-.toolbar.primary {
-    background-color: black;
-    /* Establece el fondo del toolbar en negro */
-}
 
-.white {
-    color: white;
-    text-decoration: none;
-}
+<style scoped >
+@import "../styles/index.module.css";
 
-
-.toolbar-link {
-    margin-right: 20px;
-
-    /* Ajusta la cantidad de espacio entre los enlaces según tus necesidades */
-}
-
-.inicio {
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* Cubre todo el elemento, manteniendo la relación de aspecto */
-    background-attachment: fixed;
-}
-
-.container {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Ocupa toda la altura de la ventana */
-    background-image: url("https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-}
-
-
-h1 {
-    color: white;
-    /* Establece el color del texto */
-    text-align: center;
-    /* Centra el texto horizontalmente */
-}
-
-.word-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Ocupa toda la altura de la ventana */
-}
-
-.word {
-    font-size: 4em;
-    /* Tamaño grande de la palabra */
-    opacity: 0;
-    animation: fadeInOut 3s infinite;
-    color: white;
-    /* Animación de desvanecimiento */
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    80%{
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
 </style>

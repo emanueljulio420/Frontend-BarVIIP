@@ -130,3 +130,11 @@ export default {
     }
 };
 </script>
+<style scoped>
+.v-card {
+    background-color: white;
+    border-radius: 15px; /* Esquinas redondeadas */
+    padding: 1; /* Padding en unidades relativas */
+    color: black; /* Color del texto dentro de la carta */
+}
+</style>

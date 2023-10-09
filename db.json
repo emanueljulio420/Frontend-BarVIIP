@@ -51,6 +51,15 @@
       "contrasena": "sebastian",
       "conficontrasena": "sebastian",
       "id": 4
+    },
+    {
+      "nombres": "Sebas",
+      "apellidos": "Gonzalez",
+      "tipo": "Cliente",
+      "correo": "sebastiangonza@hotmail.com",
+      "contrasena": "Sebastian",
+      "conficontrasena": "Sebastian",
+      "id": 5
     }
   ]
 }
