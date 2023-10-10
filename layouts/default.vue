@@ -13,7 +13,7 @@
       <v-toolbar-content>
         <NuxtLink to="/" class="white toolbar-link">Inicio</Nuxtlink>
         <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
-        <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink>
+        <!-- <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink> -->
         <NuxtLink to="/inicio" class="white toolbar-link">
           <v-btn icon class="white">
             <svg-icon type="mdi" :path="path"></svg-icon>

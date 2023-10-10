@@ -13,14 +13,12 @@
                         required />
                 </form>
                 <v-card-actions class="mx-3 my-2">
-                    <v-btn  class="custom-button">
+                    <v-btn class="custom-button">
                         Iniciar sesión
                     </v-btn>
                     <v-spacer />
                     <v-btn border class="custom-button" @click="openDialog()">
-                        <v-icon left>
-                            mdi mdi-check
-                        </v-icon>
+                        <svg-icon type="mdi" :path="path"></svg-icon>
                         Crear perfil
                     </v-btn>
                 </v-card-actions>
@@ -50,7 +48,13 @@ const closeDialog = () => {
 </script>
 
 <script>
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiPencilPlus } from '@mdi/js';
 export default {
+    name: "my-component",
+  components: {
+    SvgIcon
+  },
     data() {
         return {
             email: '',
@@ -61,6 +65,7 @@ export default {
                     return pattern.test(value) || 'Correo invalido.'
                 },
             },
+            path: mdiPencilPlus,
         }
     },
 };
@@ -81,10 +86,14 @@ export default {
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .transparent-card {
-    background-color: rgba(255, 255, 255, 0.7);
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    background-color: white;
     /* Color de fondo semi-transparente */
     border-radius: 15px;
     /* Esquinas redondeadas */
@@ -92,13 +101,34 @@ export default {
     /* Padding en unidades relativas */
     /* Agrega otras propiedades de estilo según sea necesario para que la carta sea responsive */
 }
+
 .custom-button {
-    background-color: rgba(255, 217, 0, 0.71); /* Fondo dorado */
-    color: white; /* Texto blanco */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px 20px; /* Espaciado interno */
-    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    background-color: rgba(255, 217, 0, 0.351);
+    /* Fondo dorado */
+    color: black;
+    /* Texto blanco */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    /* o el tamaño máximo que desees para la carta */
+    margin: 0 auto;
+    /* centra la carta en el contenedor */
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    /* asegura que la imagen no exceda el ancho del contenedor */
 }
 
 
-;</style>
+</style>
