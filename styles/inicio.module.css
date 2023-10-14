@@ -12,3 +12,60 @@
     background-attachment: fixed;
     background-position: center;
 }
+
+.container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    background-image: url("https://images.pexels.com/photos/1570806/pexels-photo-1570806.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .transparent-card {
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    background-color: white;
+    /* Color de fondo semi-transparente */
+    border-radius: 15px;
+    /* Esquinas redondeadas */
+    padding: 1.5em;
+    /* Padding en unidades relativas */
+    /* Agrega otras propiedades de estilo según sea necesario para que la carta sea responsive */
+  }
+  
+  .custom-button {
+    background-color: rgba(255, 217, 0, 0.351);
+    /* Fondo dorado */
+    color: black;
+    /* Texto blanco */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el ratón */
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 400px;
+    /* o el tamaño máximo que desees para la carta */
+    margin: 0 auto;
+    /* centra la carta en el contenedor */
+  }
+  
+  .img-responsive {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    /* asegura que la imagen no exceda el ancho del contenedor */
+  }

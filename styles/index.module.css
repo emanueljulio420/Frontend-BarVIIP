@@ -6,9 +6,14 @@
 .white {
     color: white;
     text-decoration: none;
+    font-size: 1em;
 }
-
-
+.toolbar {
+    font-size: 1rem; /* Tamaño de fuente base */
+}
+.toolbar-item {
+    font-size: 0.9rem; /* Tamaño de fuente relativo para los elementos del toolbar */
+}
 .toolbar-link {
     margin-right: 20px;
 
@@ -61,6 +66,11 @@ h1 {
     color: white;
     /* Animación de desvanecimiento */
 }
+@media screen and (max-width: 768px) {
+    .word {
+        font-size: 2em; /* Reducir el tamaño de fuente para pantallas más pequeñas */
+    }
+}
 
 @keyframes fadeInOut {
     0% {
@@ -79,3 +89,36 @@ h1 {
         opacity: 0;
     }
 }
+.responsive-image {
+    width: 10vh; /* Tamaño de la imagen en pantallas grandes (10% del alto del viewport) */
+  
+    /* Media query para pantallas pequeñas */
+
+}
+
+@media screen and (max-width: 768px) {
+    .toolbar {
+        font-size: 0.9rem;
+    }
+    .toolbar-item {
+        margin-right: 10px; /* Ajusta el margen entre los elementos para pantallas medianas */
+    }
+    .responsive-image {
+        width: 20vh;
+    }
+}
+
+/* Media query para pantallas pequeñas */
+@media screen and (max-width: 480px) {
+    .toolbar {
+        font-size: 0.8rem;
+    }
+    .toolbar-item {
+        margin-right: 5px; /* Ajusta el margen entre los elementos para pantallas pequeñas */
+    }
+    .responsive-image {
+        width: 30vh;
+    }
+}
+
+

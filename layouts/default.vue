@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar class="toolbar primary" dark prominent height="50%">
+    <v-toolbar class="toolbar primary toolbar" dark prominent height="50%">
 
       <v-toolbar-title>
         <v-img width="10vh" src="https://th.bing.com/th/id/OIG..bsrCO8FXIZrYA0W4fUL?pid=ImgGn">
@@ -14,8 +14,8 @@
         <NuxtLink to="/" class="white toolbar-link">Inicio</Nuxtlink>
         <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
         <!-- <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink> -->
-        <NuxtLink to="/inicio" class="white toolbar-link">
-          <v-btn icon class="white">
+        <NuxtLink to="/inicio-sesion" class="white toolbar-link">
+          <v-btn icon class="white toolbar-item ">
             <svg-icon type="mdi" :path="path"></svg-icon>
           </v-btn></Nuxtlink>
         
@@ -46,6 +46,9 @@ export default {
 }
 </script>
 <style scoped>
+
+
+
 @import "../styles/index.module.css";
 
 </style>

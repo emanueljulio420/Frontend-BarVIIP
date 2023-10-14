@@ -62,9 +62,21 @@
       "id": 5
     },
     {
+      "nombres": "Emanuel",
+      "apellidos": "Julio",
+      "tipo": "Cliente",
+      "correo": "emanuel@gmail.com",
+      "contrasena": "sebastian",
+      "conficontrasena": "sebastian",
       "id": 6
     },
     {
+      "nombres": "sebastian",
+      "apellidos": "gonzalez",
+      "tipo": "Barbero",
+      "correo": "sebastiangonza1505@hotmail.com",
+      "contrasena": "Sebastian",
+      "conficontrasena": "Sebastian",
       "id": 7
     }
   ]
