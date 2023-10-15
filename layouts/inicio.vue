@@ -27,9 +27,18 @@
                         </v-tooltip>
                     </template>
                     <v-list>
-                        <v-list-item v-for="(item, index) in items" :key="index">
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                        </v-list-item>
+                        <v-list-item-title>
+                            <NuxtLink to="/usuario" class="black toolbar-link">Mi perfil</Nuxtlink>
+                            
+                        </v-list-item-title>
+                        <v-list-item-title>
+                            <NuxtLink to="/usuario" class="black toolbar-link">Editar perfil</Nuxtlink>
+                        </v-list-item-title>
+                        <v-list-item-title>
+                            <NuxtLink to="/usuario" class="black toolbar-link">Eliminar perfil</Nuxtlink>
+                        </v-list-item-title>
+                        
+
                     </v-list>
                 </v-menu>
 
@@ -70,13 +79,6 @@ export default {
 }
 </script>
 
-
-  export default {
-    data: () => ({
-      
-    }),
-    
-  }
 <style scoped>
 @import "../styles/index.module.css";
 </style>

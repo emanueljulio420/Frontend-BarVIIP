@@ -17,6 +17,18 @@
       "type": "Cliente",
       "email": "sebastiangt2003@gmail.com",
       "id": 2
+    },
+    {
+      "name": "sebastian",
+      "lastname": "Gonzalez",
+      "type": "Cliente",
+      "image": [
+        {}
+      ],
+      "email": "1@gmail.com",
+      "password": "sebastian",
+      "confipassword": "sebastian",
+      "id": 3
     }
   ],
   "barberos": []
