@@ -25,7 +25,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]"
-                                    label="Correo" variant="outlined" cols="6" />
+                                    label="Correo" variant="outlined" cols="6" disabled/>
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field v-model="new_user.password"
@@ -43,7 +43,7 @@
                             </v-col>
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
-                                    Registrarme
+                                    Actualizar
                                     <v-icon class="mx-1" end icon="mdi-checkbox-marked-circle" />
                                 </v-btn>
                             </v-col>
@@ -84,11 +84,17 @@ const props = defineProps({
         required: true
     }
 })
-
+const actualizar_usuario = async () => {
+    const url = `http://localhost:3001/usuarios/${new_user.value.id}`
+    const result = await axios.put(url, new_user.value)
+    console.log(result);
+    open.value = false
+    emit('close')
+}
 onBeforeMount(() => {
     open.value = props.dialog
-    console.log(props.edit_user.value);
     new_user.value=props.edit_user
+    console.log(new_user.value);
     /* new_user.value=props.user */
 });
 
@@ -132,7 +138,7 @@ const handleSubmit = async () => {
   }
   
   errorMessage.value = "";
-  await guardarUsuario();
+  await actualizar_usuario();
 };
 const mostrarError = (mensaje) => {
   Swal.fire({
@@ -141,42 +147,6 @@ const mostrarError = (mensaje) => {
     text: mensaje,
   });
 };
-
-const getUsers = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/usuarios');
-    return response.data;
-  } catch (error) {
-    console.error('Error al obtener usuarios:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-  }
-};
-
-const guardarUsuario = async () => {
-    try {
-        const users = await getUsers();
-        const foundUser = users.find(user => user.email === new_user.value.email);
-        if (foundUser) {
-            mostrarError('El correo ya existe');
-        } else {
-            if (new_user.value.password === new_user.value.confipassword) {
-                await axios.post("http://localhost:3001/usuarios", new_user.value);
-                closeDialog();
-                Swal.fire(
-                    'Cuenta creada con éxito!',
-                    'Felicidades'
-                );
-                
-            } else {
-                mostrarError('Las contraseñas no son iguales');
-            }
-        }
-    } catch (error) {
-        console.error(error);
-        mostrarError('Error al guardar el usuario. Por favor, inténtalo de nuevo más tarde.');
-    }
-};
-
 
 const closeDialog = () => {
     open.value = false

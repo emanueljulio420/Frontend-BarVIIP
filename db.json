@@ -2,12 +2,15 @@
   "usuarios": [
     {
       "name": "sebas",
-      "lastname": "ssss",
+      "lastname": "trujillo",
       "type": "Cliente",
       "email": "sebas@gmail.com",
       "password": "sebastian",
       "confipassword": "sebastian",
-      "id": 1
+      "id": 1,
+      "image": [
+        {}
+      ]
     },
     {
       "confipassword": "sebastian",

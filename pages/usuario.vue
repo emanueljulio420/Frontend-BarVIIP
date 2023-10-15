@@ -1,54 +1,56 @@
 <template>
     <div class="centrar container">
         <v-container class="my-3">
+
             <v-row>
-                <v-col cols="6">
-                    <v-img class=" centrar-imagen" width="450" :src="userProfileImageUrl" cover></v-img>
-                </v-col>
-                <v-col cols="6" class="white">
+                <v-col cols="12" class="white">
+                
                     <v-btn border class="custom-button" @click="openDialog()">
                     </v-btn>
-                    <h1>Mi perfil </h1><br>
+                    <h1>Mi perfil </h1>
 
+                    <v-img class=" centrar-imagen" width="300" height="200" :src="userProfileImageUrl" cover></v-img>
                     <template v-if="user">
-                        <h2> Nombre: {{ user.name }}</h2><br>
-                        <h2> Apellido: {{ user && user.lastname }}</h2><br>
-                        <h2> Email: {{ user && user.email }}</h2><br>
+                        <h2> Nombre: {{ user.name }}</h2>
+                        <h2> Apellido: {{ user && user.lastname }}</h2>
+                        <h2> Email: {{ user && user.email }}</h2>
                         <h2> Tipo de usuario: {{ user && user.type }}</h2>
                     </template>
                 </v-col>
-            </v-row>
-
+                </v-row>
         </v-container>
 
-        <UsuariosEditarUsuario v-if="openD" :dialog="openD" :edit_user="user" @close="closeDialog" /> 
+        <UsuariosEditarUsuario v-if="openD" :dialog="openD" :edit_user="copy_user" @close="closeDialog" />
     </div>
-    
 </template>
   
 <script setup>
 import { ref, onBeforeMount } from 'vue';
-const openD=ref(false)
-let user = ref();
+const openD = ref(false)
+const user = ref();
 
+const copy_user = ref()
 
 
 onBeforeMount(() => {
     if (process.client) {
-    const userData = sessionStorage.getItem("USER");
-    if (userData) {
-        user.value = JSON.parse(userData);
+        const userData = sessionStorage.getItem("USER");
+        if (userData) {
+            user.value = JSON.parse(userData);
+        }
     }
-}
 
 });
 const userProfileImageUrl = 'https://cdn.vuetifyjs.com/images/parallax/material.jpg';
 const openDialog = () => {
-  openD.value = true;
-  user.value= user
+    openD.value = true;
+    copy_user.value = { ...user.value }
+    console.log(copy_user.value);
+
 };
 const closeDialog = () => {
-  openD.value = false;
+    openD.value = false;
+    user.value = copy_user.value
 };
 definePageMeta({
     layout: 'inicio'
@@ -94,7 +96,8 @@ definePageMeta({
     text-decoration: none;
     font-size: 1em;
 }
-.black{
+
+.black {
     color: black;
 }
 </style>
