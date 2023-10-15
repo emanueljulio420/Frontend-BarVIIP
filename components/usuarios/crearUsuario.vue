@@ -3,39 +3,39 @@
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
                 <h1 class="my-6">Registrarme</h1>
-                <form class="mx-5" action="javascript:void(0)" @submit="guardarUsuario" requiered>
+                <form class="mx-5" action="javascript:void(0)"  @submit.prevent="handleSubmit()" requiered>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field v-model="usuarioNuevo.nombres" :rules="[rules.required]" label="Nombres"
+                                <v-text-field v-model="new_user.name" :rules="[rules.required]" label="Nombres"
                                     placeholder="Nombres" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="usuarioNuevo.apellidos" :rules="[rules.required]" label="Apellidos"
+                                <v-text-field v-model="new_user.lastname" :rules="[rules.required]" label="Apellidos"
                                     placeholder="Apellidos" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
-                                <v-autocomplete v-model="usuarioNuevo.tipo" :rules="[rules.required]" :items="Tipos_usu"
+                                <v-autocomplete v-model="new_user.type" :rules="[rules.required]" :items="Tipos_usu"
                                     label="Tipo de usuario" placeholder="Select..."></v-autocomplete>
                             </v-col>
                             <!-- <v-col cols="12">
-                                <v-file-input v-model="usuarioNuevo.image" :rules="[rules.required,rules.image]"
+                                <v-file-input v-model="new_user.image" :rules="[rules.required,rules.image]"
                                     accept="image/png, image/jpeg, image/bmp" placeholder="Ingresa tu foto"
                                     prepend-icon="mdi-camera" label="Foto"></v-file-input>
                             </v-col> -->
                             <v-col cols="12">
-                                <v-text-field v-model="usuarioNuevo.correo" :rules="[rules.required, rules.email]"
+                                <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]"
                                     label="Correo" variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="6">
-                                <v-text-field v-model="usuarioNuevo.contrasena"
+                                <v-text-field v-model="new_user.password"
                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
                                     :type="show1 ? 'text' : 'password'" hint="Minimo 8 caracteres" counter
                                     @click:append="show1 = !show1" label="Contraseña" placeholder="Contraseña"
                                     variant="outlined" />
                             </v-col>
                             <v-col cols="6">
-                                <v-text-field v-model="usuarioNuevo.conficontrasena"
+                                <v-text-field v-model="new_user.confipassword"
                                     :rules="[rules.required, rules.min]"
                                     type="password"
                                     hint="Minimo 8 caracteres" counter label="Confirmar contraseña"
@@ -68,7 +68,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const open = ref()
 
-const usuarioNuevo = ref({})
+const errorMessage = ref()
+
+const new_user = ref({})
 
 const emit = defineEmits(['close'])
 
@@ -83,27 +85,83 @@ onBeforeMount(() => {
     open.value = props.dialog
 });
 
-const guardarUsuario = () => {
-    if (usuarioNuevo.value.contrasena === usuarioNuevo.value.conficontrasena)  {
-        console.log("Hola");
-        axios.post("http://localhost:3001/usuario", usuarioNuevo.value)
-            .then(() => {
+const handleSubmit = async () => {
+  // Validación del correo electrónico
+  if (!new_user.value.name) {
+    errorMessage.value = "Por favor, ingresa tu nombre.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  if (!new_user.value.lastname) {
+    errorMessage.value = "Por favor, ingresa tu nombre.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  if (!new_user.value.type) {
+    errorMessage.value = "Por favor, ingresa el tipo de tu usuario.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  if (!new_user.value.email || !/^\S+@\S+\.\S+$/.test(new_user.value.email)) {
+    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  // Validación de la contraseña
+  if (!new_user.value.password) {
+    errorMessage.value = "Por favor, ingresa tu contraseña.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  if (!new_user.value.confipassword) {
+    errorMessage.value = "Por favor, confirma tu contraseña.";
+    mostrarError(errorMessage.value);
+    return;
+  }
+  
+  errorMessage.value = "";
+  await guardarUsuario();
+};
+const mostrarError = (mensaje) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: mensaje,
+  });
+};
+
+const getUsers = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/usuarios');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
+  }
+};
+
+const guardarUsuario = async () => {
+    try {
+        const users = await getUsers();
+        const foundUser = users.find(user => user.email === new_user.value.email);
+        if (foundUser) {
+            mostrarError('El correo ya existe');
+        } else {
+            if (new_user.value.password === new_user.value.confipassword) {
+                await axios.post("http://localhost:3001/usuarios", new_user.value);
                 closeDialog();
                 Swal.fire(
-                    'Cuenta creada con exito!',
-                    'success'
-                )
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Contraseñas incorrectas',
-            text: 'Las contraseñas no coinciden. Por favor, intenta de nuevo.',
-            appendTo: document.getElementById('crearUsuarioDialog')
-        });
+                    'Cuenta creada con éxito!',
+                    'Felicidades'
+                );
+                
+            } else {
+                mostrarError('Las contraseñas no son iguales');
+            }
+        }
+    } catch (error) {
+        console.error(error);
+        mostrarError('Error al guardar el usuario. Por favor, inténtalo de nuevo más tarde.');
     }
 };
 
@@ -148,4 +206,5 @@ export default {
     color: black;
     /* Color del texto dentro de la carta */
 }
+
 </style>

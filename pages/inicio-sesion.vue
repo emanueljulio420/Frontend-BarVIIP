@@ -44,7 +44,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 const openD = ref(false);
 const password=ref()
 const email=ref()
-const user = ref({});
 const errorMessage = ref()
 const router = useRouter();
 const openDialog = () => {
@@ -63,61 +62,60 @@ const validar = async () => {
     );
 };
 
-
 const handleSubmit = async () => {
-    // Validación del correo electrónico
-    console.log("Entro formulario")
-    if (!email.value || !/^\S+@\S+\.\S+$/.test(email.email)) {
-        console.log("Entro a verificacion de correo")
-        errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: errorMessage.value,
-        });
-        return;
-    }
+  // Validación del correo electrónico
+  if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
+    mostrarError(errorMessage.value);
+    return;
+  }
 
-    // Validación de la contraseña
-    if (!user.password) {
-        errorMessage.value = "Por favor, ingresa tu contraseña.";
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: errorMessage.value,
-        });
-        return;
-    }
+  // Validación de la contraseña
+  if (!password.value) {
+    errorMessage.value = "Por favor, ingresa tu contraseña.";
+    mostrarError(errorMessage.value);
+    return;
+  }
 
-    errorMessage.value = "";
-    await login();
+  errorMessage.value = "";
+  await login();
+};
+
+const mostrarError = (mensaje) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: mensaje,
+  });
 };
 
 const login = async () => {
+  try {
     const users = await getUsers();
+    const foundUser = users.find(user => user.email === email.value && user.password === password.value);
 
-    const foundUser = users.find(
-        user =>
-            user.email === user.email && user.password === user.password
-    );
     if (foundUser) {
-        console.log('Inicio de sesión exitoso para el usuario:', foundUser);
-        router.push({
-            path: "/inicio"
-        })
+      console.log('Inicio de sesión exitoso para el usuario:', foundUser);
+      router.push({ path: "/reservas" });
     } else {
-        console.error('Credenciales incorrectas. Inicio de sesión fallido.');
+      mostrarError('Credenciales incorrectas. Inicio de sesión fallido.');
+      password.value=""
+
     }
-}
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+  }
+};
+
 const getUsers = async () => {
-    try {
-        const response = await axios.get('http://localhost:3001/usuarios');
-        users = response.data;
-        return users
-    } catch (error) {
-        console.error('Error al obtener usuarios:', error);
-    }
-}
+  try {
+    const response = await axios.get('http://localhost:3001/usuarios');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
+  }
+};
 
 </script>
 

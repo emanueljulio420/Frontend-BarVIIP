@@ -1,83 +1,23 @@
 {
-  "usuario": [
+  "usuarios": [
     {
-      "__v_isShallow": false,
-      "dep": {
-        "w": 0,
-        "n": 0
-      },
-      "__v_isRef": true,
-      "_rawValue": {
-        "nombres": "holaaa",
-        "apellidos": "sdasdasd",
-        "tipo": "Cliente",
-        "correo": "sdsada@dada.com",
-        "contrasena": "sebastian",
-        "conficontrasena": "sebastian"
-      },
-      "_value": {
-        "nombres": "holaaa",
-        "apellidos": "sdasdasd",
-        "tipo": "Cliente",
-        "correo": "sdsada@dada.com",
-        "contrasena": "sebastian",
-        "conficontrasena": "sebastian"
-      },
+      "name": "sebas",
+      "lastname": "ssss",
+      "type": "Cliente",
+      "email": "sebas@gmail.com",
+      "password": "sebastian",
+      "confipassword": "sebastian",
       "id": 1
     },
     {
-      "nombres": "Sebas",
-      "apellidos": "Gonzalez",
-      "tipo": "Cliente",
-      "correo": "sebas@gmail.com",
-      "contrasena": "sebastian",
-      "conficontrasena": "sebastian",
+      "confipassword": "sebastian",
+      "password": "sebastian",
+      "name": "sebas",
+      "lastname": "ssssssssssss",
+      "type": "Cliente",
+      "email": "sebastiangt2003@gmail.com",
       "id": 2
-    },
-    {
-      "nombres": "aaaaaaaaaaaaaa",
-      "apellidos": "aaassssssssssssssssss",
-      "tipo": "Barbero",
-      "correo": "sadadsa@gmail,com",
-      "contrasena": "sebastian",
-      "conficontrasena": "sebastian",
-      "id": 3
-    },
-    {
-      "nombres": "sssssssssssss",
-      "apellidos": "sssaaaaaaaaaaaaa",
-      "tipo": "Barbero",
-      "correo": "sasa@gmail.cpm",
-      "contrasena": "sebastian",
-      "conficontrasena": "sebastian",
-      "id": 4
-    },
-    {
-      "nombres": "Sebas",
-      "apellidos": "Gonzalez",
-      "tipo": "Cliente",
-      "correo": "sebastiangonza@hotmail.com",
-      "contrasena": "Sebastian",
-      "conficontrasena": "Sebastian",
-      "id": 5
-    },
-    {
-      "nombres": "Emanuel",
-      "apellidos": "Julio",
-      "tipo": "Cliente",
-      "correo": "emanuel@gmail.com",
-      "contrasena": "sebastian",
-      "conficontrasena": "sebastian",
-      "id": 6
-    },
-    {
-      "nombres": "sebastian",
-      "apellidos": "gonzalez",
-      "tipo": "Barbero",
-      "correo": "sebastiangonza1505@hotmail.com",
-      "contrasena": "Sebastian",
-      "conficontrasena": "Sebastian",
-      "id": 7
     }
-  ]
+  ],
+  "barberos": []
 }
