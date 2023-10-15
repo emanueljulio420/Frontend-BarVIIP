@@ -6,8 +6,7 @@
                     <v-img class=" centrar-imagen" width="450" :src="userProfileImageUrl" cover></v-img>
                 </v-col>
                 <v-col cols="6" class="white">
-                    <v-btn>
-                        <v-icon icon="fa:fas fa-edit black"></v-icon>
+                    <v-btn border class="custom-button" @click="openDialog()">
                     </v-btn>
                     <h1>Mi perfil </h1><br>
 
@@ -19,34 +18,42 @@
                     </template>
                 </v-col>
             </v-row>
-            <div><v-icon :icon="`mdiSvg:${mdiPencil}`"></v-icon></div>
 
         </v-container>
-        
+
+        <UsuariosEditarUsuario v-if="openD" :dialog="openD" :edit_user="user" @close="closeDialog" /> 
     </div>
+    
 </template>
   
 <script setup>
 import { ref, onBeforeMount } from 'vue';
+const openD=ref(false)
+let user = ref();
 
-let user = ref(null);
 
-if (process.client) {
+
+onBeforeMount(() => {
+    if (process.client) {
     const userData = sessionStorage.getItem("USER");
     if (userData) {
         user.value = JSON.parse(userData);
     }
 }
 
+});
 const userProfileImageUrl = 'https://cdn.vuetifyjs.com/images/parallax/material.jpg';
-
+const openDialog = () => {
+  openD.value = true;
+  user.value= user
+};
+const closeDialog = () => {
+  openD.value = false;
+};
 definePageMeta({
     layout: 'inicio'
 });
 
-onBeforeMount(() => {
-    console.log(user.value);
-});
 </script>
   
 <style>

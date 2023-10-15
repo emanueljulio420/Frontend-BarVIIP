@@ -2,7 +2,7 @@
     <div>
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
-                <h1 class="my-6">Registrarme</h1>
+                <h1 class="my-6">Actualizar datos</h1>
                 <form class="mx-5" action="javascript:void(0)"  @submit.prevent="handleSubmit()" requiered>
                     <v-container class="my-3">
                         <v-row>
@@ -78,11 +78,18 @@ const props = defineProps({
     dialog: {
         type: Boolean,
         required: true
+    },
+    edit_user: {
+        type: Object,
+        required: true
     }
 })
 
 onBeforeMount(() => {
     open.value = props.dialog
+    console.log(props.edit_user.value);
+    new_user.value=props.edit_user
+    /* new_user.value=props.user */
 });
 
 const handleSubmit = async () => {
