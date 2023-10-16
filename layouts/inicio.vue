@@ -29,15 +29,17 @@
                     <v-list>
                         <v-list-item-title>
                             <NuxtLink to="/usuario" class="black toolbar-link">Mi perfil</Nuxtlink>
-                            
+
                         </v-list-item-title>
                         <v-list-item-title>
                             <NuxtLink to="/usuario" class="black toolbar-link">Editar perfil</Nuxtlink>
                         </v-list-item-title>
                         <v-list-item-title>
-                            <NuxtLink to="/usuario" class="black toolbar-link">Eliminar perfil</Nuxtlink>
+                            <span @click="deleteUser(user)" style="cursor: pointer; color: black;">
+                                Eliminar perfil
+                            </span>
                         </v-list-item-title>
-                        
+
 
                     </v-list>
                 </v-menu>
@@ -50,6 +52,33 @@
         <slot />
     </div>
 </template>
+<script setup>
+import axios from 'axios';
+
+const user = ref();
+
+const router = useRouter();
+
+onBeforeMount(() => {
+    if (process.client) {
+        const userData = sessionStorage.getItem("USER");
+        if (userData) {
+            user.value = JSON.parse(userData);
+        }
+    }
+
+});
+
+const deleteUser = async (item) => {
+    console.log(item.value)
+    const url = `http://localhost:3001/usuarios/${item.id}`
+    const { data } = await axios.delete(url)
+    console.log(data.value)
+    router.push({ path: '/' });
+    
+}
+</script>
+
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccount } from '@mdi/js';
@@ -57,6 +86,7 @@ import { mergeProps } from 'vue'
 
 export default {
     name: "my-cool-component",
+    
 
     components: {
         SvgIcon
@@ -74,10 +104,19 @@ export default {
     },
 
     methods: {
-        mergeProps
+        mergeProps,
+        
     }
+
 }
 </script>
+
+
+
+
+
+
+
 
 <style scoped>
 @import "../styles/index.module.css";
