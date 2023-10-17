@@ -23,6 +23,18 @@
       "password": "sebastian",
       "confipassword": "sebastian",
       "id": 3
+    },
+    {
+      "name": "sebastian",
+      "lastname": "gonzalez",
+      "type": "Cliente",
+      "email": "sebastian@gmail.com",
+      "image": [
+        {}
+      ],
+      "password": "sebastian",
+      "confipassword": "sebastian",
+      "id": 4
     }
   ],
   "barberos": []

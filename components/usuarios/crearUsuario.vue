@@ -3,7 +3,7 @@
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
                 <h1 class="my-6">Registrarme</h1>
-                <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit.prevent="handleSubmit()" requiered>
+                <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit.prevent="handleSubmit($refs.form)" required>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
@@ -87,14 +87,14 @@ onBeforeMount(() => {
     open.value = props.dialog
 });
 
-const handleSubmit = async () => {
-  // Validación del correo electrónico
-  const { valid } = await this.$refs.form.validate()
-  if (!valid){
-    return
+const handleSubmit = async (form) => {
+  const { valid } = await form.validate();
+  if (!valid) {
+    return;
   }
   await guardarUsuario();
 };
+
 const mostrarError = (mensaje) => {
   Swal.fire({
     icon: "error",
