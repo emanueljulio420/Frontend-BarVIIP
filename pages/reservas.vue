@@ -9,7 +9,9 @@
 
 <script setup>
 let user = null;
+const router=useRoute()
 
+console.log(router.query)
 if (process.client) {
   // Verificar si sessionStorage está definido
   const userData = sessionStorage.getItem("USER");

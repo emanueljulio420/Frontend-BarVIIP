@@ -97,7 +97,8 @@ const login = async () => {
       console.log('Inicio de sesión exitoso para el usuario:', foundUser);
       let stringUser = JSON.stringify(foundUser);
       sessionStorage.setItem('USER', stringUser);
-      router.push({ path: '/reservas' });
+      router.push({path:"/reservas" , query:{id:foundUser.id}})
+      
 
     } else {
       mostrarError('Credenciales incorrectas. Inicio de sesión fallido.');

@@ -3,7 +3,7 @@
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
                 <h1 class="my-6">Registrarme</h1>
-                <form class="mx-5" action="javascript:void(0)"  @submit.prevent="handleSubmit()" requiered>
+                <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit.prevent="handleSubmit()" requiered>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
@@ -55,7 +55,9 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                </form>
+                    <div v-html="errorMessage">
+                    </div>
+                </v-form>
             </v-card>
         </v-dialog>
     </div>
@@ -87,44 +89,10 @@ onBeforeMount(() => {
 
 const handleSubmit = async () => {
   // Validación del correo electrónico
-  if (!new_user.value.name) {
-    errorMessage.value = "Por favor, ingresa tu nombre.";
-    mostrarError(errorMessage.value);
-    return;
+  const { valid } = await this.$refs.form.validate()
+  if (!valid){
+    return
   }
-  if (!new_user.value.lastname) {
-    errorMessage.value = "Por favor, ingresa tu nombre.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  if (!new_user.value.type) {
-    errorMessage.value = "Por favor, ingresa el tipo de tu usuario.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  if (!new_user.value.image) {
-    errorMessage.value = "Por favor, ingresa tu foto.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  if (!new_user.value.email || !/^\S+@\S+\.\S+$/.test(new_user.value.email)) {
-    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  // Validación de la contraseña
-  if (!new_user.value.password) {
-    errorMessage.value = "Por favor, ingresa tu contraseña.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  if (!new_user.value.confipassword) {
-    errorMessage.value = "Por favor, confirma tu contraseña.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-  
-  errorMessage.value = "";
   await guardarUsuario();
 };
 const mostrarError = (mensaje) => {
