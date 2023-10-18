@@ -12,7 +12,7 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2">
+                            <v-sheet class="pa-2 ma-2" >
                                 {{ user.name }}
                             </v-sheet>
                         </v-col>

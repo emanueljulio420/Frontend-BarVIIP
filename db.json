@@ -49,18 +49,21 @@
       "password": "tujefa12",
       "confipassword": "tujefa12",
       "id": 3
+    },
+    {
+      "name": "Ema",
+      "lastname": "Julio",
+      "type": "Barbero",
+      "image": [
+        {}
+      ],
+      "email": "ema@gmail.com",
+      "password": "tujefa12",
+      "confipassword": "tujefa12",
+      "id": 4
     }
   ],
   "citas": [
-    {
-      "idBarbero": 2,
-      "nameBarber": "jorgea",
-      "date": "2023-11-02",
-      "hour": "13:26",
-      "address": "k",
-      "idCliente": 1,
-      "id": 3
-    },
     {
       "idBarbero": 1,
       "nameBarber": "Emanuel",
@@ -78,6 +81,15 @@
       "address": "l",
       "idCliente": 2,
       "id": 5
+    },
+    {
+      "idBarbero": 1,
+      "nameBarber": "Emanuel",
+      "date": "2023-10-19",
+      "hour": "14:58",
+      "address": "en mi casa",
+      "idCliente": 1,
+      "id": 6
     }
   ]
 }

@@ -7,32 +7,32 @@
         <v-card-title class="my-3">
           <h2>Iniciar sesión</h2>
         </v-card-title>
-        <form class="mx-5" action="javascript:void(0)" @submit="handleSubmit">
+        <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit="handleSubmit($refs.form)" required>
           <v-row>
             <v-col cols="12">
               <v-text-field v-model="email" :rules="[rules.required, rules.correo]" label="Correo" variant="outlined"
-                requiered />
+                required />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12"><v-text-field v-model="password" :rules="[rules.required]" label="Contraseña" type="password"
-                placeholder="Contraseña" variant="outlined" requiered />
+                placeholder="Contraseña" variant="outlined" required />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="6">
               <v-btn class="custom-button" type="submit">
-            Iniciar sesión
-          </v-btn>
-            </v-col>    
+                Iniciar sesión
+              </v-btn>
+            </v-col>
             <v-col cols="6">
               <v-btn border class="custom-button" @click="openDialog()">
-            <svg-icon type="mdi" :path="path"></svg-icon>
-            Crear perfil
-          </v-btn>
-</v-col>
+                <svg-icon type="mdi" :path="path"></svg-icon>
+                Crear perfil
+              </v-btn>
+            </v-col>
           </v-row>
-        </form>
+        </v-form>
       </v-card>
       <usuarios-crearUsuario v-if="openD" :dialog="openD" @close="closeDialog" />
     </div>
@@ -54,22 +54,14 @@ const closeDialog = () => {
   openD.value = false;
 };
 
-const handleSubmit = async () => {
-  // Validación del correo electrónico
-  if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
-    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
-    mostrarError(errorMessage.value);
-    return;
-  }
-
-  // Validación de la contraseña
-  if (!password.value) {
-    errorMessage.value = "Por favor, ingresa tu contraseña.";
-    mostrarError(errorMessage.value);
+const handleSubmit = async (form) => {
+  const { valid } = await form.validate();
+  if (!valid) {
     return;
   }
   await login();
 };
+
 
 const mostrarError = (mensaje) => {
   Swal.fire({
@@ -80,6 +72,7 @@ const mostrarError = (mensaje) => {
 };
 const login = async () => {
   try {
+
     const users = await getUsers();
     const foundUser = users.find(user => user.email === email.value && user.password === password.value);
     const barbers = await getBarbers();
@@ -88,13 +81,11 @@ const login = async () => {
       console.log('Inicio de sesión exitoso para el usuario:', foundUser || foundBarber);
       let stringUser = JSON.stringify(foundUser || foundBarber);
       sessionStorage.setItem('USER', stringUser);
-      if(foundUser){
-        router.push({path:"/reservas" , query:{id:foundUser.id}})
-      }else{
-        router.push({path:"/agenda", query:{id:foundBarber.id}})
+      if (foundUser) {
+        router.push({ path: "/reservas", query: { id: foundUser.id } })
+      } else {
+        router.push({ path: "/agenda", query: { id: foundBarber.id } })
       }
-    } else {
-      mostrarError('Credenciales incorrectas. Inicio de sesión fallido.');
     }
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
@@ -134,7 +125,7 @@ export default {
   },
   data() {
     return {
-      correo: "",
+      email: "",
       rules: {
         required: (value) => !!value || "Campo necesaro.",
         correo: (value) => {
@@ -148,6 +139,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../styles/inicio.module.css"
-</style>
+<style scoped>@import "../styles/inicio.module.css"</style>

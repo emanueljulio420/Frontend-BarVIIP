@@ -177,9 +177,9 @@ export default {
                     return pattern.test(value) || 'Correo invalido.'
                 },
                 min: v => v.length >= 8 || 'Min 8 characters',
-                /* image: value => {
+                image: value => {
                     return !value || !value.length || value[0].size < 2000000 || 'El tamaño de la imagen debe ser de menos de 2MB!'
-                } */
+                }
             }
         }
     }
