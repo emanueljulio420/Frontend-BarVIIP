@@ -28,14 +28,6 @@
                             <NuxtLink to="/barber" class="black toolbar-link">Mi perfil</Nuxtlink>
                         </v-list-item-title>
                         <v-list-item-title class="mx-3 my-1">
-                            <NuxtLink to="/barber" class="black toolbar-link">Editar perfil</Nuxtlink>
-                        </v-list-item-title>
-                        <v-list-item-title class="mx-3 my-1">
-                            <span @click="deleteUser(user)" style="cursor: pointer; color: black;">
-                                Eliminar perfil
-                            </span>
-                        </v-list-item-title>
-                        <v-list-item-title class="mx-3 my-1">
                             <NuxtLink to="/" class="black toolbar-link">Salir</Nuxtlink>
                         </v-list-item-title>
                     </v-list>

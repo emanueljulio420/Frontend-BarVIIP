@@ -29,14 +29,6 @@
                             <NuxtLink to="/cliente" class="black toolbar-link">Mi perfil</Nuxtlink>
                         </v-list-item-title>
                         <v-list-item-title class="mx-3 my-1">
-                            <NuxtLink to="/cliente" class="black toolbar-link">Editar perfil</Nuxtlink>
-                        </v-list-item-title>
-                        <v-list-item-title class="mx-3 my-1">
-                            <span @click="deleteUser(user)" style="cursor: pointer; color: black;">
-                                Eliminar perfil
-                            </span>
-                        </v-list-item-title>
-                        <v-list-item-title class="mx-3 my-1">
                             <NuxtLink to="/" class="black toolbar-link">Salir</Nuxtlink>
                         </v-list-item-title>
 
@@ -53,30 +45,7 @@
     </div>
 </template>
 <script setup>
-import axios from 'axios';
 
-const user = ref();
-
-const router = useRouter();
-
-onBeforeMount(() => {
-    if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
-    }
-
-});
-
-const deleteUser = async (item) => {
-    console.log(item.value)
-    const url = `http://localhost:3001/usuarios/${item.id}`
-    const { data } = await axios.delete(url)
-    console.log(data.value)
-    router.push({ path: '/' });
-    
-}
 </script>
 
 <script>

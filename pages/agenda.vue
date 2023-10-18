@@ -1,6 +1,6 @@
 <template>
     <div>
-       <h1>jopo</h1>
+       <UsuariosCitas/>
     </div>
 </template>
 <script setup>

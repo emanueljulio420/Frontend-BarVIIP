@@ -16,7 +16,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-autocomplete v-model="new_user.type" :rules="[rules.required]" :items="Tipos_usu"
-                                    label="Tipo de usuario" placeholder="Select..."></v-autocomplete>
+                                    label="Tipo de usuario" placeholder="Select..." disabled></v-autocomplete>
                             </v-col>
                             <v-col cols="12">
                                 <v-file-input v-model="new_user.image" :rules="[rules.required,rules.image]"
@@ -52,6 +52,7 @@
                                     Cancelar
                                     <v-icon class="mx-1" end icon="mdi-cancel" />
                                 </v-btn>
+
                             </v-col>
                         </v-row>
                     </v-container>
@@ -85,11 +86,20 @@ const props = defineProps({
     }
 })
 const actualizar_usuario = async () => {
-    const url = `http://localhost:3001/usuarios/${new_user.value.id}`
-    const result = await axios.put(url, new_user.value)
-    console.log(result);
+    if (new_user.value.type === 'Cliente'){
+        const url = `http://localhost:3001/usuarios/${new_user.value.id}`
+        const result = await axios.put(url, new_user.value)
+        console.log(result);
     open.value = false
     emit('close')
+    }else {
+        const url = `http://localhost:3001/barberos/${new_user.value.id}`
+        const result = await axios.put(url, new_user.value)
+        console.log(result);
+    open.value = false
+    emit('close')
+    }
+
 }
 onBeforeMount(() => {
     open.value = props.dialog
@@ -137,7 +147,6 @@ const handleSubmit = async () => {
     return;
   }
   
-  errorMessage.value = "";
   await actualizar_usuario();
 };
 const mostrarError = (mensaje) => {

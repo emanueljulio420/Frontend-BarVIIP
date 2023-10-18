@@ -38,7 +38,8 @@
     </div>
 </template>
 <script setup>
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios';
 
 const user = ref()
@@ -61,7 +62,7 @@ const props = defineProps({
 onBeforeMount(() => {
     open.value = props.dialog
     barber.value = props.barbero
-    new_cita.value.idBardero = barber.value.id
+    new_cita.value.idBarbero = barber.value.id
     new_cita.value.nameBarber = barber.value.name
 
     if (process.client) {
@@ -103,7 +104,7 @@ const guardarCita = async () => {
             await axios.post("http://localhost:3001/citas", new_cita.value);
             closeDialog();
             Swal.fire(
-                'Cuenta creada con éxito!',
+                'Cita creada con éxito!',
                 'Felicidades'
             );
         }

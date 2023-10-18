@@ -2,72 +2,76 @@
     <div class="centrar container">
         <v-container class="my-3">
             <v-card class="rounded-lg mx-auto" max-width="600">
-                <v-img class="my-6 rounded-circle centrar-imagen" width="300" height="200" :src="userProfileImageUrl" cover></v-img>
-                        <v-card-title>My Profile</v-card-title>
-                            <v-container>
-                                <v-row no-gutters>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            Name
-                                        </v-sheet>
-                                    </v-col>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            {{ user.name }}
-                                        </v-sheet>
-                                    </v-col>
-                                </v-row>
-                                <v-row no-gutters>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                        Apellido
-                                        </v-sheet>
-                                    </v-col>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            {{ user.lastname }}
-                                        </v-sheet>
-                                    </v-col>
-                                </v-row>
-                                <v-row no-gutters>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            Email
-                                        </v-sheet>
-                                    </v-col>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            {{ user.email }}
-                                        </v-sheet>
-                                    </v-col>
-                                </v-row>
-                                <v-row no-gutters>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            Type
-                                        </v-sheet>
-                                    </v-col>
-                                    <v-col>
-                                        <v-sheet class="pa-2 ma-2">
-                                            {{ user.type }}
-                                        </v-sheet>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                            <v-card-actions class="mx-2 my-4">
-                            <v-btn variant="flat" @click="openDialog()">Edit</v-btn>
-                        </v-card-actions>
-                    </v-card>
+                <v-img class="my-6 rounded-circle centrar-imagen" width="250" height="250" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover/>
+                <v-card-title>My Profile</v-card-title>
+                <v-container>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                Name
+                            </v-sheet>
+                        </v-col>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                {{ user.name }}
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                Apellido
+                            </v-sheet>
+                        </v-col>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                {{ user.lastname }}
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                Email
+                            </v-sheet>
+                        </v-col>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                {{ user.email }}
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                Type
+                            </v-sheet>
+                        </v-col>
+                        <v-col>
+                            <v-sheet class="pa-2 ma-2">
+                                {{ user.type }}
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                </v-container>
+                <v-card-actions class="mx-2 my-4">
+                    <v-btn variant="flat" @click="openDialog()">Edit</v-btn>
+                    <v-spacer />
+                    <v-btn variant="flat" @click="deleteBarber()">Eliminar</v-btn>
+                </v-card-actions>
+            </v-card>
         </v-container>
         <UsuariosEditarUsuario v-if="openD" :dialog="openD" :edit_user="copy_user" @close="closeDialog" />
     </div>
 </template>
   
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import axios from 'axios';
+
 const openD = ref(false)
 const user = ref();
-
+const router = useRouter();
 const copy_user = ref()
 
 
@@ -78,9 +82,23 @@ onBeforeMount(() => {
             user.value = JSON.parse(userData);
         }
     }
-
 });
-const userProfileImageUrl = 'https://cdn.vuetifyjs.com/images/parallax/material.jpg';
+
+const deleteBarber = async () => {
+    Swal.fire({
+        title: 'Are you sure about deleting the profile ?',
+        showDenyButton: true,
+        denyButtonColor: '#8F8F8F',
+        confirmButtonText: 'Yes',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete(`http://localhost:3001/barberos/${user.value.id}`);
+            Swal.fire('Delete!', '', 'success')
+            router.push({ path: '/' });
+        }
+    });
+};
+
 const openDialog = () => {
     openD.value = true;
     copy_user.value = { ...user.value }
@@ -92,7 +110,7 @@ const closeDialog = () => {
     user.value = copy_user.value
 };
 definePageMeta({
-    layout: 'iniciocliente'
+    layout: 'iniciobarber'
 });
 
 </script>

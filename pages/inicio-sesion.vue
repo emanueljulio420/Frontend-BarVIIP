@@ -19,20 +19,20 @@
                 placeholder="Contraseña" variant="outlined" requiered />
             </v-col>
           </v-row>
-          <v-btn class="custom-button" type="submit">
+          <v-row>
+            <v-col cols="6">
+              <v-btn class="custom-button" type="submit">
             Iniciar sesión
           </v-btn>
-        </form>
-        <v-card-actions class="mx-3 my-2">
-          <v-btn class="custom-button" type="submit">
-            Iniciar sesión
-          </v-btn>
-          <v-spacer />
-          <v-btn border class="custom-button" @click="openDialog()">
+            </v-col>    
+            <v-col cols="6">
+              <v-btn border class="custom-button" @click="openDialog()">
             <svg-icon type="mdi" :path="path"></svg-icon>
             Crear perfil
           </v-btn>
-        </v-card-actions>
+</v-col>
+          </v-row>
+        </form>
       </v-card>
       <usuarios-crearUsuario v-if="openD" :dialog="openD" @close="closeDialog" />
     </div>
@@ -68,8 +68,6 @@ const handleSubmit = async () => {
     mostrarError(errorMessage.value);
     return;
   }
-
-  errorMessage.value = "";
   await login();
 };
 

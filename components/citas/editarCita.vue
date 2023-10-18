@@ -20,7 +20,7 @@
                             </v-col>
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
-                                    Agendar
+                                    Actualizar
                                     <v-icon class="mx-1" end icon="mdi-checkbox-marked-circle" />
                                 </v-btn>
                             </v-col>
@@ -38,7 +38,8 @@
     </div>
 </template>
 <script setup>
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import axios from 'axios';
 
 const user = ref()
@@ -90,9 +91,9 @@ const handleSubmit = async (form) => {
 const guardarCita = async () => {
     try {
         const citas = await getCitas();
-        const foundCita = citas.find(cita => cita.idBarbero === new_cita.value.idBarbero && cita.date === new_cita.value.date);
-        new_cita.value.idCliente = user.value.id 
+        const foundCita = citas.find(cita => cita.idBarbero === new_cita.value.idBarbero && cita.date === new_cita.value.date && cita.id != new_cita.value.id);
         console.log(new_cita.value);
+        console.log(foundCita)
         if (foundCita) {
             mostrarError('Cita ya agendada');
         } else {
@@ -100,7 +101,7 @@ const guardarCita = async () => {
             await axios.put(`http://localhost:3001/citas/${new_cita.value.id}`, new_cita.value);
             closeDialog();
             Swal.fire(
-                'Cuenta creada con éxito!',
+                'Cita actualizada con éxito!',
                 'Felicidades'
             );
         }

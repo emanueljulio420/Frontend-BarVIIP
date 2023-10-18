@@ -11,42 +11,6 @@
       "image": [
         {}
       ]
-    },
-    {
-      "name": "sebastian",
-      "lastname": "Gonzalez",
-      "type": "Cliente",
-      "image": [
-        {}
-      ],
-      "email": "1@gmail.com",
-      "password": "sebastian",
-      "confipassword": "sebastian",
-      "id": 3
-    },
-    {
-      "name": "sebastian",
-      "lastname": "gonzalez",
-      "type": "Cliente",
-      "email": "sebastian@gmail.com",
-      "image": [
-        {}
-      ],
-      "password": "sebastian",
-      "confipassword": "sebastian",
-      "id": 4
-    },
-    {
-      "name": "Emanuel",
-      "lastname": "Julio Lemos",
-      "type": "Cliente",
-      "image": [
-        {}
-      ],
-      "email": "ema@gmail.com",
-      "password": "tujefa12",
-      "confipassword": "tujefa12",
-      "id": 5
     }
   ],
   "barberos": [
@@ -63,7 +27,7 @@
       "id": 1
     },
     {
-      "name": "jorge",
+      "name": "jorgea",
       "lastname": "nada",
       "type": "Barbero",
       "image": [
@@ -73,17 +37,47 @@
       "password": "tujefa12",
       "confipassword": "tujefa12",
       "id": 2
+    },
+    {
+      "name": "Felipe",
+      "lastname": "nada",
+      "type": "Barbero",
+      "image": [
+        {}
+      ],
+      "email": "felipe@gmail.com",
+      "password": "tujefa12",
+      "confipassword": "tujefa12",
+      "id": 3
     }
   ],
   "citas": [
     {
-      "idBardero": 2,
-      "nameBarber": "jorge",
+      "idBarbero": 2,
+      "nameBarber": "jorgea",
       "date": "2023-11-02",
-      "hour": "12:24",
-      "address": "Hola",
-      "idCliente": 5,
-      "id": 1
+      "hour": "13:26",
+      "address": "k",
+      "idCliente": 1,
+      "id": 3
+    },
+    {
+      "idBarbero": 1,
+      "nameBarber": "Emanuel",
+      "date": "2023-10-26",
+      "hour": "17:23",
+      "address": "t",
+      "idCliente": 1,
+      "id": 4
+    },
+    {
+      "idBarbero": 1,
+      "nameBarber": "Emanuel",
+      "date": "2023-11-02",
+      "hour": "13:27",
+      "address": "l",
+      "idCliente": 2,
+      "id": 5
     }
   ]
 }
