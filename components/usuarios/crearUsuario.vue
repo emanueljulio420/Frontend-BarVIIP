@@ -3,7 +3,7 @@
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
                 <h1 class="my-6">Registrarme</h1>
-                <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit.prevent="handleSubmit($refs.form)" required>
+                <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit="handleSubmit($refs.form)" required>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
@@ -113,15 +113,31 @@ const getUsers = async () => {
   }
 };
 
+const getBarbers = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/barberos');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
+  }
+};
+
 const guardarUsuario = async () => {
     try {
         const users = await getUsers();
+        const barbers = await getBarbers();
         const foundUser = users.find(user => user.email === new_user.value.email);
-        if (foundUser) {
+        const foundBarber = barbers.find(barber => barber.email === new_user.value.email);
+        if (foundUser || foundBarber) {
             mostrarError('El correo ya existe');
         } else {
             if (new_user.value.password === new_user.value.confipassword) {
-                await axios.post("http://localhost:3001/usuarios", new_user.value);
+                if(new_user.value.type === 'Barbero'){
+                    await axios.post("http://localhost:3001/barberos", new_user.value);
+                }else{
+                    await axios.post("http://localhost:3001/usuarios", new_user.value);
+                }
                 closeDialog();
                 Swal.fire(
                     'Cuenta creada con éxito!',

@@ -11,10 +11,8 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-content>
-                <NuxtLink to="/" class="white toolbar-link">Inicio</Nuxtlink>
-                <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
                 <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink>
-                <!-- <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink> -->
+                <NuxtLink to="/mis-citas" class="white toolbar-link">Mis citas</Nuxtlink>
                 <v-menu>
                     <template v-slot:activator="{ props: menu }">
                         <v-tooltip location="top">
@@ -27,17 +25,19 @@
                         </v-tooltip>
                     </template>
                     <v-list>
-                        <v-list-item-title>
-                            <NuxtLink to="/usuario" class="black toolbar-link">Mi perfil</Nuxtlink>
-
+                        <v-list-item-title class="mx-3 my-1">
+                            <NuxtLink to="/cliente" class="black toolbar-link">Mi perfil</Nuxtlink>
                         </v-list-item-title>
-                        <v-list-item-title>
-                            <NuxtLink to="/usuario" class="black toolbar-link">Editar perfil</Nuxtlink>
+                        <v-list-item-title class="mx-3 my-1">
+                            <NuxtLink to="/cliente" class="black toolbar-link">Editar perfil</Nuxtlink>
                         </v-list-item-title>
-                        <v-list-item-title>
+                        <v-list-item-title class="mx-3 my-1">
                             <span @click="deleteUser(user)" style="cursor: pointer; color: black;">
                                 Eliminar perfil
                             </span>
+                        </v-list-item-title>
+                        <v-list-item-title class="mx-3 my-1">
+                            <NuxtLink to="/" class="black toolbar-link">Salir</Nuxtlink>
                         </v-list-item-title>
 
 
@@ -110,14 +110,6 @@ export default {
 
 }
 </script>
-
-
-
-
-
-
-
-
 <style scoped>
 @import "../styles/index.module.css";
 </style>

@@ -7,7 +7,7 @@
         <v-card-title class="my-3">
           <h2>Iniciar sesión</h2>
         </v-card-title>
-        <form class="mx-5" action="#" @submit.prevent="handleSubmit()">
+        <form class="mx-5" action="javascript:void(0)" @submit="handleSubmit">
           <v-row>
             <v-col cols="12">
               <v-text-field v-model="email" :rules="[rules.required, rules.correo]" label="Correo" variant="outlined"
@@ -53,14 +53,6 @@ const openDialog = () => {
 const closeDialog = () => {
   openD.value = false;
 };
-const existe_usuario = ref([]);
-const validar = async () => {
-  const { data } = await axios.get("http://localhost:3001/usuario");
-
-  existe_usuario.value = data.value.find(
-    (x) => x.correo == usuario.correo && x.contrasena == usuario.contrasena
-  );
-};
 
 const handleSubmit = async () => {
   // Validación del correo electrónico
@@ -92,18 +84,19 @@ const login = async () => {
   try {
     const users = await getUsers();
     const foundUser = users.find(user => user.email === email.value && user.password === password.value);
-
-    if (foundUser) {
-      console.log('Inicio de sesión exitoso para el usuario:', foundUser);
-      let stringUser = JSON.stringify(foundUser);
+    const barbers = await getBarbers();
+    const foundBarber = barbers.find(barber => barber.email === email.value && barber.password === password.value)
+    if (foundUser || foundBarber) {
+      console.log('Inicio de sesión exitoso para el usuario:', foundUser || foundBarber);
+      let stringUser = JSON.stringify(foundUser || foundBarber);
       sessionStorage.setItem('USER', stringUser);
-      router.push({path:"/reservas" , query:{id:foundUser.id}})
-      
-
+      if(foundUser){
+        router.push({path:"/reservas" , query:{id:foundUser.id}})
+      }else{
+        router.push({path:"/agenda", query:{id:foundBarber.id}})
+      }
     } else {
       mostrarError('Credenciales incorrectas. Inicio de sesión fallido.');
-      password.value = ""
-
     }
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
@@ -113,6 +106,16 @@ const login = async () => {
 const getUsers = async () => {
   try {
     const response = await axios.get('http://localhost:3001/usuarios');
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener usuarios:', error);
+    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
+  }
+};
+
+const getBarbers = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/barberos');
     return response.data;
   } catch (error) {
     console.error('Error al obtener usuarios:', error);

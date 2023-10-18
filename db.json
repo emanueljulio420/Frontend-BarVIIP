@@ -35,7 +35,55 @@
       "password": "sebastian",
       "confipassword": "sebastian",
       "id": 4
+    },
+    {
+      "name": "Emanuel",
+      "lastname": "Julio Lemos",
+      "type": "Cliente",
+      "image": [
+        {}
+      ],
+      "email": "ema@gmail.com",
+      "password": "tujefa12",
+      "confipassword": "tujefa12",
+      "id": 5
     }
   ],
-  "barberos": []
+  "barberos": [
+    {
+      "name": "Emanuel",
+      "lastname": "Julio Lemos",
+      "type": "Barbero",
+      "image": [
+        {}
+      ],
+      "email": "nada@gmail.com",
+      "password": "tujefa12",
+      "confipassword": "tujefa12",
+      "id": 1
+    },
+    {
+      "name": "jorge",
+      "lastname": "nada",
+      "type": "Barbero",
+      "image": [
+        {}
+      ],
+      "email": "jorge@gmail.com",
+      "password": "tujefa12",
+      "confipassword": "tujefa12",
+      "id": 2
+    }
+  ],
+  "citas": [
+    {
+      "idBardero": 2,
+      "nameBarber": "jorge",
+      "date": "2023-11-02",
+      "hour": "12:24",
+      "address": "Hola",
+      "idCliente": 5,
+      "id": 1
+    }
+  ]
 }

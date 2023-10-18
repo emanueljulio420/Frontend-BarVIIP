@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <UsuariosBarberos/>
-  </div>
+    <div>
+        <UsuariosCitas/>
+    </div>
 </template>
-
 <script setup>
-
 definePageMeta({
   layout: 'iniciocliente'
 });
