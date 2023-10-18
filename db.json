@@ -39,18 +39,6 @@
       "id": 2
     },
     {
-      "name": "Felipe",
-      "lastname": "nada",
-      "type": "Barbero",
-      "image": [
-        {}
-      ],
-      "email": "felipe@gmail.com",
-      "password": "tujefa12",
-      "confipassword": "tujefa12",
-      "id": 3
-    },
-    {
       "name": "Ema",
       "lastname": "Julio",
       "type": "Barbero",
@@ -67,15 +55,6 @@
     {
       "idBarbero": 1,
       "nameBarber": "Emanuel",
-      "date": "2023-10-26",
-      "hour": "17:23",
-      "address": "t",
-      "idCliente": 1,
-      "id": 4
-    },
-    {
-      "idBarbero": 1,
-      "nameBarber": "Emanuel",
       "date": "2023-11-02",
       "hour": "13:27",
       "address": "l",
@@ -85,11 +64,11 @@
     {
       "idBarbero": 1,
       "nameBarber": "Emanuel",
-      "date": "2023-10-19",
-      "hour": "14:58",
+      "date": "2023-11-05",
+      "hour": "05:00",
       "address": "en mi casa",
-      "idCliente": 1,
-      "id": 6
+      "idCliente": 2,
+      "id": 7
     }
   ]
 }

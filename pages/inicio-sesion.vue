@@ -87,6 +87,9 @@ const login = async () => {
         router.push({ path: "/agenda", query: { id: foundBarber.id } })
       }
     }
+    else{
+      mostrarError("El correo o la contraseña son incorrectos")
+    }
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
   }

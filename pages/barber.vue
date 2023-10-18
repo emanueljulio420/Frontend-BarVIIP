@@ -12,20 +12,18 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2" >
-                                {{ user.name }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.name }}
                             </v-sheet>
                         </v-col>
                     </v-row>
                     <v-row no-gutters>
                         <v-col>
                             <v-sheet class="pa-2 ma-2">
-                                Apellido
+                                Last name
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2">
-                                {{ user.lastname }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.lastname }}
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -36,8 +34,7 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2">
-                                {{ user.email }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.email }}
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -48,8 +45,7 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2">
-                                {{ user.type }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.type }}
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -73,7 +69,7 @@ const openD = ref(false)
 const user = ref();
 const router = useRouter();
 const copy_user = ref()
-
+const citas = ref();
 
 onBeforeMount(() => {
     if (process.client) {
@@ -85,6 +81,7 @@ onBeforeMount(() => {
 });
 
 const deleteBarber = async () => {
+    const { data }= await axios.get(`http://localhost:3001/citas`)
     Swal.fire({
         title: 'Are you sure about deleting the profile ?',
         showDenyButton: true,
@@ -92,6 +89,8 @@ const deleteBarber = async () => {
         confirmButtonText: 'Yes',
     }).then((result) => {
         if (result.isConfirmed) {
+            citas.value = data.filter(cita => cita.idBarbero === user.value.id)
+            citas.value.map(cita => axios.delete(`http://localhost:3001/citas/${cita.id}`));
             axios.delete(`http://localhost:3001/barberos/${user.value.id}`);
             Swal.fire('Delete!', '', 'success')
             router.push({ path: '/' });
