@@ -96,6 +96,7 @@ const actualizar_usuario = async () => {
         const url = `http://localhost:3001/barberos/${new_user.value.id}`
         const result = await axios.put(url, new_user.value)
         console.log(result);
+    Swal.fire('Updated information!', '', 'success')
     open.value = false
     emit('close')
     }
