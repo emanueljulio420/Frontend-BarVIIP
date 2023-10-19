@@ -39,18 +39,6 @@
       "id": 1
     },
     {
-      "name": "jorgea",
-      "lastname": "nada",
-      "type": "Barbero",
-      "image": [
-        {}
-      ],
-      "email": "jorge@gmail.com",
-      "password": "tujefa12",
-      "confipassword": "tujefa12",
-      "id": 2
-    },
-    {
       "name": "Ema",
       "lastname": "Julio",
       "type": "Barbero",
@@ -63,5 +51,15 @@
       "id": 4
     }
   ],
-  "citas": []
+  "citas": [
+    {
+      "idBarbero": 1,
+      "nameBarber": "Emanuel",
+      "date": "2023-10-24",
+      "hour": "11:10",
+      "address": "Hola",
+      "idCliente": 2,
+      "id": 1
+    }
+  ]
 }

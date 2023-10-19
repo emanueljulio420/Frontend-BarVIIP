@@ -26,8 +26,8 @@
               </v-btn>
             </v-col>
             <v-col cols="6">
-              <v-btn border class="custom-button" @click="openDialog()">
-                <svg-icon type="mdi" :path="path"></svg-icon>
+              <v-btn @click="openDialog()">
+                <svg-icon type="mdi" :path="path"/>
                 Crear perfil
               </v-btn>
             </v-col>

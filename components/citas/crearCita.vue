@@ -18,6 +18,7 @@
                                 <v-text-field v-model="new_cita.address" :rules="[rules.required]" label="Dirección"
                                     variant="outlined" cols="6" />
                             </v-col>
+                            <v-col cols="12" class="red" v-html="errorMessage"/>
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
                                     Agendar
@@ -47,6 +48,7 @@ const new_cita = ref({})
 const open = ref()
 const barber = ref({})
 const emit = defineEmits(['close'])
+const errorMessage = ref()
 
 const props = defineProps({
     dialog: {
@@ -98,7 +100,7 @@ const guardarCita = async () => {
         new_cita.value.idCliente = user.value.id 
         console.log(new_cita.value);
         if (foundCita) {
-            mostrarError('Cita ya agendada');
+            errorMessage.value= '<strong>Cita ya agendada</strong>';
         } else {
             console.log('entre');
             await axios.post("http://localhost:3001/citas", new_cita.value);
@@ -141,3 +143,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.red{
+    color: red;
+}
+</style>
