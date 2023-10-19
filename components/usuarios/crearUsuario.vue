@@ -41,6 +41,7 @@
                                     hint="Minimo 8 caracteres" counter label="Confirmar contraseña"
                                     placeholder="Confirmar contraseña" variant="outlined" />
                             </v-col>
+                            <v-col cols="12" class="red" v-html="errorMessage"/>
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
                                     Registrarme
@@ -55,8 +56,7 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                    <div v-html="errorMessage">
-                    </div>
+                    
                 </v-form>
             </v-card>
         </v-dialog>
@@ -130,7 +130,7 @@ const guardarUsuario = async () => {
         const foundUser = users.find(user => user.email === new_user.value.email);
         const foundBarber = barbers.find(barber => barber.email === new_user.value.email);
         if (foundUser || foundBarber) {
-            mostrarError('El correo ya existe');
+            errorMessage.value= '<strong>El correo ya existe</strong>';
         } else {
             if (new_user.value.password === new_user.value.confipassword) {
                 if(new_user.value.type === 'Barbero'){
@@ -194,6 +194,9 @@ export default {
     /* Padding en unidades relativas */
     color: black;
     /* Color del texto dentro de la carta */
+}
+.red{
+    color: red;
 }
 
 </style>

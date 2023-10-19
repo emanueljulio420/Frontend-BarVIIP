@@ -11,6 +11,18 @@
       "image": [
         {}
       ]
+    },
+    {
+      "name": "emanuel",
+      "lastname": "julio",
+      "type": "Cliente",
+      "image": [
+        {}
+      ],
+      "email": "ema1@gmail.com",
+      "password": "sebastian",
+      "confipassword": "sebastian",
+      "id": 2
     }
   ],
   "barberos": [
@@ -51,24 +63,5 @@
       "id": 4
     }
   ],
-  "citas": [
-    {
-      "idBarbero": 1,
-      "nameBarber": "Emanuel",
-      "date": "2023-11-02",
-      "hour": "13:27",
-      "address": "l",
-      "idCliente": 2,
-      "id": 5
-    },
-    {
-      "idBarbero": 1,
-      "nameBarber": "Emanuel",
-      "date": "2023-11-05",
-      "hour": "05:00",
-      "address": "en mi casa",
-      "idCliente": 2,
-      "id": 7
-    }
-  ]
+  "citas": []
 }
