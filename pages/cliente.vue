@@ -86,6 +86,7 @@ onBeforeMount(() => {
 const deleteCliente = async () => {
     const { data }= await axios.get(`http://localhost:3001/citas`)
     Swal.fire({
+        icon: 'question',
         title: 'Are you sure about deleting the profile ?',
         showDenyButton: true,
         denyButtonColor: '#8F8F8F',

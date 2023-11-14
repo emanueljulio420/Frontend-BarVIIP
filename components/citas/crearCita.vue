@@ -107,7 +107,8 @@ const guardarCita = async () => {
             closeDialog();
             Swal.fire(
                 'Appointment created successfully!',
-                'Congratulations'
+                'Congratulations',
+                'success'
             );
         }
     } catch (error) {

@@ -82,8 +82,18 @@ const login = async () => {
       let stringUser = JSON.stringify(foundUser || foundBarber);
       sessionStorage.setItem('USER', stringUser);
       if (foundUser) {
+        Swal.fire(
+                'Welcome',
+                "It's good to see you again",
+                'success'
+            );
         router.push({ path: "/reservas", query: { id: foundUser.id } })
       } else {
+        Swal.fire(
+                'Welcome',
+                "It's good to see you again",
+                'success'
+            );
         router.push({ path: "/agenda", query: { id: foundBarber.id } })
       }
     }

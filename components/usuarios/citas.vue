@@ -96,6 +96,7 @@ const editCita = (cita) => {
 
 const deleteCita = async (cita) => {
     Swal.fire({
+        icon: 'question',  
         title: 'Are you sure you delete the quote ?',
         showDenyButton: true,
         denyButtonColor: '#8F8F8F',

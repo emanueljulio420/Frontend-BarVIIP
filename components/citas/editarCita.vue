@@ -102,8 +102,10 @@ const guardarCita = async () => {
             await axios.put(`http://localhost:3001/citas/${new_cita.value.id}`, new_cita.value);
             closeDialog();
             Swal.fire(
+            
                 'Appointment updated successfully!',
-                'Congratulations'
+                'Congratulations',
+                'success'
             );
         }
     } catch (error) {

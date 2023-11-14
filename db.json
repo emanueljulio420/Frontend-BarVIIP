@@ -27,16 +27,16 @@
   ],
   "barberos": [
     {
-      "name": "Emanuel",
-      "lastname": "Julio Lemos",
-      "type": "Barbero",
+      "name": "sebas",
+      "lastname": "trujill",
+      "type": "Cliente",
+      "email": "sebas@gmail.com",
+      "password": "sebastian",
+      "confipassword": "sebastian",
+      "id": 1,
       "image": [
         {}
-      ],
-      "email": "nada@gmail.com",
-      "password": "tujefa12",
-      "confipassword": "tujefa12",
-      "id": 1
+      ]
     },
     {
       "name": "Emanuel",
@@ -60,6 +60,33 @@
       "address": "Hola",
       "idCliente": 2,
       "id": 1
+    },
+    {
+      "idBarbero": 4,
+      "nameBarber": "Emanuel",
+      "date": "2023-11-09",
+      "hour": "17:48",
+      "address": "in my house",
+      "idCliente": 1,
+      "id": 2
+    },
+    {
+      "idBarbero": 1,
+      "nameBarber": "sebas",
+      "date": "2023-11-17",
+      "hour": "18:06",
+      "address": "lalala",
+      "idCliente": 1,
+      "id": 3
+    },
+    {
+      "idBarbero": 1,
+      "nameBarber": "sebas",
+      "date": "2023-11-08",
+      "hour": "18:09",
+      "address": "m",
+      "idCliente": 1,
+      "id": 4
     }
   ]
 }
