@@ -11,8 +11,8 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-content>
-        <NuxtLink to="/" class="white toolbar-link">Inicio</Nuxtlink>
-        <NuxtLink to="/quienes-somos" class="white toolbar-link">Quiénes somos</Nuxtlink>
+        <NuxtLink to="/" class="white toolbar-link">Start</Nuxtlink>
+        <NuxtLink to="/quienes-somos" class="white toolbar-link">Who we are</Nuxtlink>
         <!-- <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink> -->
         <NuxtLink to="/inicio-sesion" class="white toolbar-link">
           <v-btn icon class="white toolbar-item ">

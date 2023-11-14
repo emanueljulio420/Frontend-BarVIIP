@@ -1,14 +1,14 @@
 <template>
     <div class="aling-center">
         <v-container class="text-center">
-            <h1>Barberos</h1>
+            <h1>Barbers</h1>
             <v-row class="my-10">
                 <v-col v-for="barber of barbers" :key="barber.id" cols="4" class="my-5">
                     <v-card class="mx-auto" max-width="344">
                         <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="400" width="auto" cover />
                         <v-card-title>{{ barber.name }}</v-card-title>
                         <v-card-actions>
-                            <v-btn color="red" variant="flat" @click="agendar(barber)" block>Agendar</v-btn>
+                            <v-btn color="red" variant="flat" @click="agendar(barber)" block>Scheule</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>

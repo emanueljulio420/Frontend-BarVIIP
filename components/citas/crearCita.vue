@@ -2,20 +2,20 @@
     <div>
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
-                <h1 class="my-6">Agendar cita</h1>
+                <h1 class="my-6">Schedule appointment</h1>
                 <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit="handleSubmit($refs.form)" required>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field v-model="new_cita.date" :rules="[rules.required]" label="Dia" type="date"
+                                <v-text-field v-model="new_cita.date" :rules="[rules.required]" label="Date" type="date"
                                     variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="new_cita.hour" :rules="[rules.required]" label="Dia" type="time"
+                                <v-text-field v-model="new_cita.hour" :rules="[rules.required]" label="Hour" type="time"
                                     variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="new_cita.address" :rules="[rules.required]" label="Dirección"
+                                <v-text-field v-model="new_cita.address" :rules="[rules.required]" label="Address"
                                     variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="12" class="red" v-html="errorMessage"/>
@@ -80,7 +80,7 @@ const getCitas = async () => {
         const response = await axios.get('http://localhost:3001/citas');
         return response.data;
     } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+        console.error('Error getting users:', error);
         throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
     }
 }
@@ -100,19 +100,19 @@ const guardarCita = async () => {
         new_cita.value.idCliente = user.value.id 
         console.log(new_cita.value);
         if (foundCita) {
-            errorMessage.value= '<strong>Cita ya agendada</strong>';
+            errorMessage.value= '<strong>Appointment already scheduled</strong>';
         } else {
             console.log('entre');
             await axios.post("http://localhost:3001/citas", new_cita.value);
             closeDialog();
             Swal.fire(
-                'Cita creada con éxito!',
-                'Felicidades'
+                'Appointment created successfully!',
+                'Congratulations'
             );
         }
     } catch (error) {
         console.error(error);
-        mostrarError('Error al guardar el usuario. Por favor, inténtalo de nuevo más tarde.');
+        mostrarError('Error saving user. Please try again later.');
     }
 }
 
@@ -137,7 +137,7 @@ export default {
             show1: false,
             show2: true,
             rules: {
-                required: value => !!value || 'Campo necesaro.'
+                required: value => !!value || 'Required field.'
             }
         }
     }

@@ -11,8 +11,8 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-content>
-                <NuxtLink to="/reservas" class="white toolbar-link">Reservas</Nuxtlink>
-                <NuxtLink to="/mis-citas" class="white toolbar-link">Mis citas</Nuxtlink>
+                <NuxtLink to="/reservas" class="white toolbar-link">Bookings</Nuxtlink>
+                <NuxtLink to="/mis-citas" class="white toolbar-link">My dates</Nuxtlink>
                 <v-menu>
                     <template v-slot:activator="{ props: menu }">
                         <v-tooltip location="top">
@@ -21,15 +21,15 @@
                                     <svg-icon type="mdi" :path="path"></svg-icon>
                                 </v-btn>
                             </template>
-                            <span>Mi perfil</span>
+                            <span>My profile</span>
                         </v-tooltip>
                     </template>
                     <v-list>
                         <v-list-item-title class="mx-3 my-1">
-                            <NuxtLink to="/cliente" class="black toolbar-link">Mi perfil</Nuxtlink>
+                            <NuxtLink to="/cliente" class="black toolbar-link">My profile</Nuxtlink>
                         </v-list-item-title>
                         <v-list-item-title class="mx-3 my-1">
-                            <NuxtLink to="/" class="black toolbar-link">Salir</Nuxtlink>
+                            <NuxtLink to="/" class="black toolbar-link">Leave</Nuxtlink>
                         </v-list-item-title>
 
 
@@ -65,9 +65,9 @@ export default {
         return {
             path: mdiAccount,
             items: [
-                { title: 'Ver perfil' },
-                { title: 'Editar perfil' },
-                { title: 'Eliminar perfil' }
+                { title: 'View profile' },
+                { title: 'Edit profile' },
+                { title: 'Delete profile' }
             ]
         };
     },

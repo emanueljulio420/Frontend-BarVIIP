@@ -10,7 +10,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const words = ['Corte de cabello', 'Arreglo de barba', 'Barberos profesionales', 'Limpieza Facial']; // Lista de palabras
+const words = ['Haircut', 'Beard Grooming', 'Professional Barbers', 'Facial Cleansing']; // Lista de palabras
 const currentWordIndex = ref(0);
 
 onMounted(() => {

@@ -5,30 +5,30 @@
         src="../images/_c26d19c6-e2c2-4f86-8148-2e602efa170b-removebg-preview.png" />
       <v-card class="my-5 text-center mx-auto transparent-card" min-width="400" min-height="300">
         <v-card-title class="my-3">
-          <h2>Iniciar sesión</h2>
+          <h2>Login</h2>
         </v-card-title>
         <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit="handleSubmit($refs.form)" required>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="email" :rules="[rules.required, rules.correo]" label="Correo" variant="outlined"
+              <v-text-field v-model="email" :rules="[rules.required, rules.correo]" label="Email" variant="outlined"
                 required />
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12"><v-text-field v-model="password" :rules="[rules.required]" label="Contraseña" type="password"
-                placeholder="Contraseña" variant="outlined" required />
+            <v-col cols="12"><v-text-field v-model="password" :rules="[rules.required]" label="Password" type="password"
+                placeholder="Password" variant="outlined" required />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="6">
               <v-btn class="custom-button" type="submit">
-                Iniciar sesión
+                Loginnnnn
               </v-btn>
             </v-col>
             <v-col cols="6">
               <v-btn @click="openDialog()">
                 <svg-icon type="mdi" :path="path"/>
-                Crear perfil
+                Create profile
               </v-btn>
             </v-col>
           </v-row>
@@ -78,7 +78,7 @@ const login = async () => {
     const barbers = await getBarbers();
     const foundBarber = barbers.find(barber => barber.email === email.value && barber.password === password.value)
     if (foundUser || foundBarber) {
-      console.log('Inicio de sesión exitoso para el usuario:', foundUser || foundBarber);
+      console.log('Successful login for the user:', foundUser || foundBarber);
       let stringUser = JSON.stringify(foundUser || foundBarber);
       sessionStorage.setItem('USER', stringUser);
       if (foundUser) {
@@ -88,10 +88,10 @@ const login = async () => {
       }
     }
     else{
-      mostrarError("El correo o la contraseña son incorrectos")
+      mostrarError("The email or password is incorrect")
     }
   } catch (error) {
-    console.error('Error al obtener usuarios:', error);
+    console.error('Failed to get users:', error);
   }
 };
 
@@ -100,7 +100,7 @@ const getUsers = async () => {
     const response = await axios.get('http://localhost:3001/usuarios');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener usuarios:', error);
+    console.error('Failed to get users:', error);
     throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
   }
 };
@@ -110,7 +110,7 @@ const getBarbers = async () => {
     const response = await axios.get('http://localhost:3001/barberos');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener usuarios:', error);
+    console.error('Failed to get users:', error);
     throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
   }
 };
@@ -130,10 +130,10 @@ export default {
     return {
       email: "",
       rules: {
-        required: (value) => !!value || "Campo necesaro.",
+        required: (value) => !!value || "Required Field.",
         correo: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Correo invalido.";
+          return pattern.test(value) || "Email invalid.";
         },
       },
       path: mdiPencilPlus,

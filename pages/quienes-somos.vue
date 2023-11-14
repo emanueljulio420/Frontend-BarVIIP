@@ -3,39 +3,42 @@
         <v-container>
             <v-row class="align-start">
                 <v-col cols="12">
-                    <h1 class="display-2 text-white ">Quiénes Somos</h1>
+                    <h1 class="display-2 text-white ">Who we are?</h1>
                     <p class="subtitle-1 text-white">
-                        En Barviip, nos dedicamos a brindar servicios de barbería de calidad en la comodidad de tu hogar.
-                        Nuestro equipo de barberos profesionales está aquí para ofrecerte cortes de pelo elegantes,
-                        afeitados precisos y tratamientos de barbería de primera clase, todo en el lugar que prefieras.
+                        At Barviip, we are dedicated to providing quality barbering services in the comfort of your home.
+                        Our team of professional barbers is here to offer you stylish haircuts,
+                        Precise shaves and first-class barber treatments, all in the place you prefer.
                     </p>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12">
                     <v-carousel>
-                        <v-carousel-item src="https://images.pexels.com/photos/3998429/pexels-photo-3998429.jpeg" cover></v-carousel-item>
+                        <v-carousel-item src="https://images.pexels.com/photos/3998429/pexels-photo-3998429.jpeg"
+                            cover></v-carousel-item>
 
-                        <v-carousel-item src="https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg" cover></v-carousel-item>
+                        <v-carousel-item src="https://images.pexels.com/photos/2061820/pexels-photo-2061820.jpeg"
+                            cover></v-carousel-item>
 
-                        <v-carousel-item src="https://images.pexels.com/photos/2040189/pexels-photo-2040189.jpeg" cover></v-carousel-item>
+                        <v-carousel-item src="https://images.pexels.com/photos/2040189/pexels-photo-2040189.jpeg"
+                            cover></v-carousel-item>
                     </v-carousel>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="6">
-                    <h2 class="headline text-white">Nuestra Misión</h2>
+                    <h2 class="headline text-white">Our mission</h2>
                     <p class="text-white">
-                        Nuestra misión en Barviip es proporcionar servicios de barbería convenientes y accesibles para
-                        todos. Creemos que la apariencia personal es importante y queremos ayudarte a lucir tu mejor versión
-                        sin tener que salir de casa.
+                        Our mission at Barviip is to provide convenient and accessible barbering services for
+                         all. We believe that personal appearance is important and we want to help you look your best.
+                         without having to leave home.
                     </p>
                 </v-col>
                 <v-col cols="6">
-                    <h2 class="headline text-white">Nuestro Compromiso</h2>
+                    <h2 class="headline text-white">Our commitment</h2>
                     <p class="text-white">
-                        Estamos comprometidos con la satisfacción del cliente. Nos esforzamos por ofrecer servicios de alta
-                        calidad, puntualidad y profesionalismo en cada visita. Tu satisfacción es nuestra prioridad.
+                        We are committed to customer satisfaction. We strive to offer high quality services
+                        quality, punctuality and professionalism in each visit. Your satisfaction is our priority.
                     </p>
                 </v-col>
             </v-row>

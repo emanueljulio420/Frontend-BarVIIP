@@ -2,55 +2,55 @@
     <div>
         <v-dialog v-model="open" width="50%" id="crearUsuarioDialog" persistent>
             <v-card class="text-center">
-                <h1 class="my-6">Registrarme</h1>
+                <h1 class="my-6">Register</h1>
                 <v-form class="mx-5" action="javascript:void(0)" ref="form" @submit="handleSubmit($refs.form)" required>
                     <v-container class="my-3">
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field v-model="new_user.name" :rules="[rules.required]" label="Nombres"
-                                    placeholder="Nombres" variant="outlined" />
+                                <v-text-field v-model="new_user.name" :rules="[rules.required]" label="Names"
+                                    placeholder="Names" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="new_user.lastname" :rules="[rules.required]" label="Apellidos"
-                                    placeholder="Apellidos" variant="outlined" />
+                                <v-text-field v-model="new_user.lastname" :rules="[rules.required]" label="Lastnames"
+                                    placeholder="Lastnames" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
                                 <v-autocomplete v-model="new_user.type" :rules="[rules.required]" :items="Tipos_usu"
-                                    label="Tipo de usuario" placeholder="Select..."></v-autocomplete>
+                                    label="Type of user" placeholder="Select..."></v-autocomplete>
                             </v-col>
                             <v-col cols="12">
                                 <v-file-input v-model="new_user.image" :rules="[rules.required,rules.image]"
-                                    accept="image/png, image/jpeg, image/bmp" placeholder="Ingresa tu foto"
-                                    prepend-icon="mdi-camera" label="Foto"></v-file-input>
+                                    accept="image/*" placeholder="Enter your photo"
+                                    prepend-icon="mdi-camera" label="Photo"></v-file-input>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]"
-                                    label="Correo" variant="outlined" cols="6" />
+                                    label="Email" variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field v-model="new_user.password"
                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
-                                    :type="show1 ? 'text' : 'password'" hint="Minimo 8 caracteres" counter
-                                    @click:append="show1 = !show1" label="Contraseña" placeholder="Contraseña"
+                                    :type="show1 ? 'text' : 'password'" hint="Minimum 8 characters" counter
+                                    @click:append="show1 = !show1" label="Password" placeholder="Password"
                                     variant="outlined" />
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field v-model="new_user.confipassword"
                                     :rules="[rules.required, rules.min]"
                                     type="password"
-                                    hint="Minimo 8 caracteres" counter label="Confirmar contraseña"
-                                    placeholder="Confirmar contraseña" variant="outlined" />
+                                    hint="Minimum 8 characters" counter label="Confirm Password"
+                                    placeholder="Confirm Password" variant="outlined" />
                             </v-col>
                             <v-col cols="12" class="red" v-html="errorMessage"/>
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
-                                    Registrarme
+                                    Register
                                     <v-icon class="mx-1" end icon="mdi-checkbox-marked-circle" />
                                 </v-btn>
                             </v-col>
                             <v-col cols="6">
                                 <v-btn border class="text-none" variant="text" @click="closeDialog()" size="large">
-                                    Cancelar
+                                    Cancel
                                     <v-icon class="mx-1" end icon="mdi-cancel" />
                                 </v-btn>
                             </v-col>
@@ -108,7 +108,7 @@ const getUsers = async () => {
     const response = await axios.get('http://localhost:3001/usuarios');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener usuarios:', error);
+    console.error('Error getting users:', error);
     throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
   }
 };
@@ -118,7 +118,7 @@ const getBarbers = async () => {
     const response = await axios.get('http://localhost:3001/barberos');
     return response.data;
   } catch (error) {
-    console.error('Error al obtener usuarios:', error);
+    console.error('Error getting users:', error);
     throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
   }
 };
@@ -130,27 +130,27 @@ const guardarUsuario = async () => {
         const foundUser = users.find(user => user.email === new_user.value.email);
         const foundBarber = barbers.find(barber => barber.email === new_user.value.email);
         if (foundUser || foundBarber) {
-            errorMessage.value= '<strong>El correo ya existe</strong>';
+            errorMessage.value= '<strong>Email already exists</strong>';
         } else {
             if (new_user.value.password === new_user.value.confipassword) {
-                if(new_user.value.type === 'Barbero'){
+                if(new_user.value.type === 'Barber'){
                     await axios.post("http://localhost:3001/barberos", new_user.value);
                 }else{
                     await axios.post("http://localhost:3001/usuarios", new_user.value);
                 }
                 closeDialog();
                 Swal.fire(
-                    'Cuenta creada con éxito!',
-                    'Felicidades'
+                    'Successfully created account!',
+                    'Congratulations'
                 );
                 
             } else {
-                mostrarError('Las contraseñas no son iguales');
+                mostrarError('Passwords are not equal');
             }
         }
     } catch (error) {
         console.error(error);
-        mostrarError('Error al guardar el usuario. Por favor, inténtalo de nuevo más tarde.');
+        mostrarError('Error saving the user. Please try again later.');
     }
 };
 
@@ -169,16 +169,16 @@ export default {
             show1: false,
             show2: true,
             email: '',
-            Tipos_usu: ['Barbero', 'Cliente'],
+            Tipos_usu: ['Barber', 'Client'],
             rules: {
-                required: value => !!value || 'Campo necesaro.',
+                required: value => !!value || 'Required field.',
                 email: value => {
                     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    return pattern.test(value) || 'Correo invalido.'
+                    return pattern.test(value) || 'Invalid email.'
                 },
                 min: v => v.length >= 8 || 'Min 8 characters',
                 image: value => {
-                    return !value || !value.length || value[0].size < 2000000 || 'El tamaño de la imagen debe ser de menos de 2MB!'
+                    return !value || !value.length || value[0].size < 2000000 || 'The image size must be less than 2 mb!'
                 }
             }
         }

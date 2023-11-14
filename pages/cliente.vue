@@ -53,7 +53,7 @@
                 <v-card-actions class="mx-2 my-4">
                     <v-btn variant="flat" @click="openDialog()">Edit</v-btn>
                     <v-spacer />
-                    <v-btn variant="flat" @click="deleteCliente()">Eliminar</v-btn>
+                    <v-btn variant="flat" @click="deleteCliente()">Delete</v-btn>
                 </v-card-actions>
             </v-card>
         </v-container>
