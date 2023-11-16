@@ -23,6 +23,7 @@
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/js": "^7.3.67",
     "axios": "^1.5.1",
+    "config": "^3.3.9",
     "sweetalert2": "^11.7.32"
   }
 }

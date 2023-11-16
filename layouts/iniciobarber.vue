@@ -73,6 +73,12 @@ import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccount } from '@mdi/js';
 import { mergeProps } from 'vue'
 
+onBeforeMount(()=>{
+  console.log(localStorage);
+  const token = localStorage.getItem('TOKEN');
+  console.log(token);
+})
+
 export default {
     name: "my-cool-component",
     

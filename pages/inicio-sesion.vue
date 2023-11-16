@@ -27,7 +27,7 @@
             </v-col>
             <v-col cols="6">
               <v-btn @click="openDialog()">
-                <svg-icon type="mdi" :path="path"/>
+                <svg-icon type="mdi" :path="path" />
                 Create profile
               </v-btn>
             </v-col>
@@ -40,12 +40,51 @@
 </template>
 
 <script setup>
+
+import axios from "axios";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-const openD = ref(false);
+import config from '../config/default.json'
+1
+const router = useRouter();
 const password = ref()
 const email = ref()
-const errorMessage = ref()
-const router = useRouter();
+
+const login = async () => {
+  try {
+    const url = `${config.api_host}/auth`
+    const { data } = await axios.post(url, { email: email.value, password: password.value })
+    if (data?.ok) {
+      console.log(data?.info);
+      Swal.fire(
+        'Welcome',
+        `${data?.message}`,
+        'success'
+      );
+      if (data?.info.tyoe === "User") {
+        localStorage.setItem = ('TOKEN',data?.info.token) 
+        router.push({ path: "/agenda" });
+      } else {
+        localStorage.setItem = ('TOKEN',data?.info.token) 
+        router.push({ path: "/reservas" });
+      }
+    } else {
+      Swal.fire({
+        title: "Oops...",
+        text: data?.message,
+        icon: "error",
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      title: "Error",
+      text: "Not found api",
+      icon: "error",
+    });
+  }
+}
+
+const openD = ref(false);
+
 const openDialog = () => {
   openD.value = true;
 };
@@ -62,75 +101,11 @@ const handleSubmit = async (form) => {
   await login();
 };
 
-
-const mostrarError = (mensaje) => {
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: mensaje,
-  });
-};
-const login = async () => {
-  try {
-
-    const users = await getUsers();
-    const foundUser = users.find(user => user.email === email.value && user.password === password.value);
-    const barbers = await getBarbers();
-    const foundBarber = barbers.find(barber => barber.email === email.value && barber.password === password.value)
-    if (foundUser || foundBarber) {
-      console.log('Successful login for the user:', foundUser || foundBarber);
-      let stringUser = JSON.stringify(foundUser || foundBarber);
-      sessionStorage.setItem('USER', stringUser);
-      if (foundUser) {
-        Swal.fire(
-                'Welcome',
-                "It's good to see you again",
-                'success'
-            );
-        router.push({ path: "/reservas", query: { id: foundUser.id } })
-      } else {
-        Swal.fire(
-                'Welcome',
-                "It's good to see you again",
-                'success'
-            );
-        router.push({ path: "/agenda", query: { id: foundBarber.id } })
-      }
-    }
-    else{
-      mostrarError("The email or password is incorrect")
-    }
-  } catch (error) {
-    console.error('Failed to get users:', error);
-  }
-};
-
-const getUsers = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/usuarios');
-    return response.data;
-  } catch (error) {
-    console.error('Failed to get users:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-  }
-};
-
-const getBarbers = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/barberos');
-    return response.data;
-  } catch (error) {
-    console.error('Failed to get users:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-  }
-};
-
 </script>
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiPencilPlus } from "@mdi/js";
-import axios from "axios";
 export default {
   name: "my-component",
   components: {
@@ -152,4 +127,6 @@ export default {
 };
 </script>
 
-<style scoped>@import "../styles/inicio.module.css"</style>
+<style scoped>
+@import "../styles/inicio.module.css"
+</style>
