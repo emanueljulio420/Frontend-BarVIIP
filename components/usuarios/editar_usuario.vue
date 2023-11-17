@@ -130,6 +130,7 @@ onBeforeMount(() => {
     open.value = props.dialog
     new_user.value = props.edit_user
     console.log(new_user.value);
+    console.log("Hola")
     /* new_user.value=props.user */
 });
 
