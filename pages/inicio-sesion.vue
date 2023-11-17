@@ -60,9 +60,11 @@ const login = async () => {
         'success'
       );
       if (data?.info.type === "User") {
-        sessionStorage.setItem("TOKEN",data?.info.token) 
+        sessionStorage.setItem("TOKEN",data?.info.token)
+        sessionStorage.setItem("TYPE",data?.info.type) 
         router.push({ path: "/reservas" });
       } else {
+        sessionStorage.setItem("TYPE",data?.info.type) 
         sessionStorage.setItem("TOKEN",data?.info.token) 
         router.push({ path: "/agenda" });
       }

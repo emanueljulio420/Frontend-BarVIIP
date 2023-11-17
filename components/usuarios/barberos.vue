@@ -5,7 +5,7 @@
             <v-row class="my-10">
                 <v-col v-for="barber of barbers" :key="barber.id" cols="4" class="my-5">
                     <v-card class="mx-auto" max-width="344">
-                        <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="400" width="auto" cover />
+                        <v-img :src='barber.img.slice()' height="400" width="auto" cover />
                         <v-card-title>{{ barber.name }}</v-card-title>
                         <v-card-actions>
                             <v-btn color="red" variant="flat" @click="agendar(barber)" block>Scheule</v-btn>
@@ -21,7 +21,7 @@
 
 import axios from 'axios';
 import { getHeaders } from "../../src/auth/jwt";
-import config from '../config/default.json'
+import config from '../../config/default.json'
 
 const openD = ref(false);
 const agendarBarber = ref({})

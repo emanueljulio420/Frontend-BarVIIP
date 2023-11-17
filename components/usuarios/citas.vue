@@ -60,9 +60,10 @@
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import axios from 'axios';
+import config from '../../config/default.json'
+import { getHeaders } from "../../src/auth/jwt";
 
 const openD = ref(false);
-const agendarBarber = ref({})
 const citas = ref({})
 const copy_cita = ref()
 
@@ -70,21 +71,28 @@ const user = ref()
 
 onBeforeMount(() => {
     getCitas();
-    if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
-    }
 });
 
 const getCitas = async () => {
-    const { data } = await axios.get('http://localhost:3001/citas');
-    if (user.value.type === 'Cliente') {
-        citas.value = data.filter(cita => cita.idCliente === user.value.id);
+    const token = sessionStorage.getItem("TOKEN")
+    const urlverify = `${config.api_host}/verify`
+    const { data } = await axios.post(urlverify, { token })
+    const type = sessionStorage.getItem("TYPE")
+    const headers = getHeaders(token)
+    const urlget = `${config.api_host}/appointments/`
+    if (type === 'User') {
+        let filter = {
+            idUser: data.info._id
+        }
+        const { data: response } = await axios.get(urlget, filter, { headers })
+        citas.value = response.info
     }
     else {
-        citas.value = data.filter(cita => cita.idBarbero === user.value.id);
+        let filter = {
+            idBarber: data.info._id
+        }
+        const { data: response } = await axios.get(urlget, filter, { headers })
+        citas.value = response.info
     }
     console.log(citas.value);
 };
@@ -96,14 +104,17 @@ const editCita = (cita) => {
 
 const deleteCita = async (cita) => {
     Swal.fire({
-        icon: 'question',  
+        icon: 'question',
         title: 'Are you sure you delete the quote ?',
         showDenyButton: true,
         denyButtonColor: '#8F8F8F',
         confirmButtonText: 'Yes',
     }).then((result) => {
         if (result.isConfirmed) {
-            const { data } = axios.delete(`http://localhost:3001/citas/${cita.id}`)
+            const token = sessionStorage.getItem("TOKEN");
+            const headers = getHeaders(token);
+            const url = `${config.api_host}/appointments/${cita._id}`
+            const { data } = axios.delete(url, { headers })
             console.log(data)
             getCitas()
             Swal.fire('Delete!', '', 'success')
