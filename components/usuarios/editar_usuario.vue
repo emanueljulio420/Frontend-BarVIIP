@@ -20,9 +20,9 @@
                                     label="Type of user" placeholder="Select..." disabled></v-autocomplete>
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="new_user.image" :rules="[rules.required, rules.image]"
-                                    accept="image/*" placeholder="Enter your photo" prepend-icon="mdi-camera"
-                                    label="Photo"></v-file-input>
+                                <v-file-input v-model="new_user.img" :rules="[rules.required, rules.image]"
+                                    accept="image/*" placeholder="Enter your photo" prepend-icon="mdi-camera" label="Photo"
+                                    disabled></v-file-input>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]" label="Email"
@@ -35,7 +35,7 @@
                                     placeholder="Password" variant="outlined" />
                             </v-col>
                             <v-col cols="6">
-                                <v-text-field v-model="new_user.confipassword" :rules="[rules.required, rules.min]"
+                                <v-text-field v-model="new_user.confirmPassword" :rules="[rules.required, rules.min]"
                                     type="password" hint="Minimum 8 characters" counter label="Confirm password"
                                     placeholder="Confirm password" variant="outlined" />
                             </v-col>
@@ -88,13 +88,20 @@ const actualizar_usuario = async () => {
     try {
         const token = sessionStorage.getItem("TOKEN")
         const urlVerify = `${config.api_host}/verify`
-        const { data } = await axios.post(urlVerify, {token})
+        const { data } = await axios.post(urlVerify, { token })
         const id = data.info._id
+        const user_db = {
+            name: new_user.value.name,
+            lastName: new_user.value.lastName,
+            email: new_user.value.email,
+            password: new_user.value.password,
+            confirmPassword: new_user.value.confirmPassword
+        }
         console.log(id, "Id")
         console.log(token, "token")
         const headers = getHeaders(token)
         const url = `${config.api_host}/users/${id}`
-        const response = await axios.post(url, new_user.value, { headers })
+        const {data:response} = await axios.put(url, user_db, {headers} )
         if (response.ok) {
             closeDialog()
             Swal.fire(

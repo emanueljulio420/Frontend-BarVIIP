@@ -88,9 +88,7 @@ onBeforeMount(async () => {
 
 const info = async () => {
     try {
-        console.log("Hola")
         const token = sessionStorage.getItem("TOKEN")
-        console.log(token)
         const url = `${config.api_host}/verify`
         const { data } = await axios.post(url, {token})
         if (data.ok == false) {
@@ -99,7 +97,6 @@ const info = async () => {
             }
         }
         else {
-            console.log(data)
             const userData = data.info
             user.value = userData
         }
@@ -110,8 +107,41 @@ const info = async () => {
     }
 }
 
-
 const deleteCliente = async () => {
+    try {
+        const result = await Swal.fire({
+            icon: 'question',
+            title: 'Are you sure you want to delete your user?',
+            showDenyButton: true,
+            denyButtonColor: '#8F8F8F',
+            confirmButtonText: 'Yes',
+        });
+
+        if (result.isConfirmed) {
+            const token = sessionStorage.getItem("TOKEN");
+            const headers = getHeaders(token);
+            const url_very = `${config.api_host}/verify`;
+            
+            // Realizar la solicitud POST con await
+            const { data } = await axios.post(url_very, { token });
+            console.log("Entre");
+            console.log(data);
+
+            const id = data.info._id;
+            const url = `${config.api_host}/users/${id}`;
+
+            // Realizar la solicitud DELETE con await
+            const response = await axios.delete(url, { headers });
+            Swal.fire('Delete!', '', 'success');
+            router.push({ path: '/' });
+        }
+    } catch (error) {
+        // Manejar errores aquí
+        console.error(error);
+        Swal.fire('Error', 'There was an error deleting the user', 'error');
+    }
+};
+/* const deleteCliente = async () => {
     const { data } = await axios.get(`http://localhost:3001/citas`)
     Swal.fire({
         icon: 'question',
@@ -129,7 +159,7 @@ const deleteCliente = async () => {
             router.push({ path: '/' });
         }
     });
-}
+} */
 
 const openDialog = () => {
     openD.value = true;
