@@ -2,7 +2,8 @@
     <div class="centrar container">
         <v-container class="my-3">
             <v-card class="rounded-lg mx-auto" max-width="600">
-                <v-img class="my-6 rounded-circle centrar-imagen" width="250" height="250" src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover/>
+                <v-img class="my-6 rounded-circle centrar-imagen" width="250" height="250"
+                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover />
                 <v-card-title>My Profile</v-card-title>
                 <v-container>
                     <v-row no-gutters>
@@ -23,7 +24,7 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.lastname }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.lastName }}
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -65,6 +66,8 @@
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import axios from 'axios';
+import config from '../config/default.json'
+import { getHeaders } from "../src/auth/jwt.js";
 
 const router = useRouter();
 const openD = ref(false)
@@ -72,19 +75,44 @@ const user = ref();
 const copy_user = ref()
 const citas = ref();
 
-onBeforeMount(() => {
-    if (process.client) {
+onBeforeMount(async () => {
+    await info()
+    /* if (process.client) {
         const userData = sessionStorage.getItem("USER");
         if (userData) {
             user.value = JSON.parse(userData);
         }
-    }
+    } */
 
 });
 
+const info = async () => {
+    try {
+        console.log("Hola")
+        const token = sessionStorage.getItem("TOKEN")
+        console.log(token)
+        const url = `${config.api_host}/verify`
+        const { data } = await axios.post(url, {token})
+        if (data.ok == false) {
+            throw {
+                message: data.message
+            }
+        }
+        else {
+            console.log(data)
+            const userData = data.info
+            user.value = userData
+        }
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 const deleteCliente = async () => {
-    const { data }= await axios.get(`http://localhost:3001/citas`)
+    const { data } = await axios.get(`http://localhost:3001/citas`)
     Swal.fire({
         icon: 'question',
         title: 'Are you sure about deleting the profile ?',
@@ -93,7 +121,7 @@ const deleteCliente = async () => {
         confirmButtonText: 'Yes',
     }).then((result) => {
         if (result.isConfirmed) {
-            
+
             citas.value = data.filter(cita => cita.idCliente === user.value.id)
             citas.value.map(cita => axios.delete(`http://localhost:3001/citas/${cita.id}`));
             axios.delete(`http://localhost:3001/usuarios/${user.value.id}`);
