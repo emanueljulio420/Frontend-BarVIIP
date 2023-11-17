@@ -23,7 +23,7 @@
                             </v-sheet>
                         </v-col>
                         <v-col>
-                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.lastname }}
+                            <v-sheet class="pa-2 ma-2" v-if="user">{{ user.lastName }}
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -64,6 +64,8 @@
 <script setup>
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import axios from 'axios';
+import config from '../config/default.json'
+import { getHeaders } from "../src/auth/jwt.js";
 
 const openD = ref(false)
 const user = ref();
@@ -71,32 +73,70 @@ const router = useRouter();
 const copy_user = ref()
 const citas = ref();
 
-onBeforeMount(() => {
-    if (process.client) {
+onBeforeMount(async() => {
+    await info()
+    /* if (process.client) {
         const userData = sessionStorage.getItem("USER");
         if (userData) {
             user.value = JSON.parse(userData);
         }
-    }
+    } */
 });
 
+const info = async () => {
+    try {
+        const token = sessionStorage.getItem("TOKEN")
+        const url = `${config.api_host}/verify`
+        const { data } = await axios.post(url, {token})
+        if (data.ok == false) {
+            throw {
+                message: data.message
+            }
+        }
+        else {
+            const userData = data.info
+            user.value = userData
+        }
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 const deleteBarber = async () => {
-    const { data }= await axios.get(`http://localhost:3001/citas`)
-    Swal.fire({
-        icon: 'question',
-        title: 'Are you sure about deleting the profile ?',
-        showDenyButton: true,
-        denyButtonColor: '#8F8F8F',
-        confirmButtonText: 'Yes',
-    }).then((result) => {
+    try {
+        const result = await Swal.fire({
+            icon: 'question',
+            title: 'Are you sure you want to delete your barber?',
+            showDenyButton: true,
+            denyButtonColor: '#8F8F8F',
+            confirmButtonText: 'Yes',
+        });
+
         if (result.isConfirmed) {
-            citas.value = data.filter(cita => cita.idBarbero === user.value.id)
-            citas.value.map(cita => axios.delete(`http://localhost:3001/citas/${cita.id}`));
-            axios.delete(`http://localhost:3001/barberos/${user.value.id}`);
-            Swal.fire('Delete!', '', 'success')
+            const token = sessionStorage.getItem("TOKEN");
+            const headers = getHeaders(token);
+            const url_very = `${config.api_host}/verify`;
+            
+            // Realizar la solicitud POST con await
+            const { data } = await axios.post(url_very, { token });
+
+            const id = data.info._id;
+            const url = `${config.api_host}/barbers/${id}`;
+
+            const urlget = `${config.api_host}/appointments/`
+            const { data: otro } = await axios.get(urlget, { headers })
+            citas.value = otro.info.filter(cita => cita.idBarber === id)
+            citas.value.map(cita => axios.delete(`${config.api_host}/appointments/${cita._id}`));
+            const response = await axios.delete(url, { headers });
+            Swal.fire('Delete!', '', 'success');
             router.push({ path: '/' });
         }
-    });
+    } catch (error) {
+        // Manejar errores aquí
+        console.error(error);
+        Swal.fire('Error', 'There was an error deleting the user', 'error');
+    }
 };
 
 const openDialog = () => {

@@ -82,7 +82,12 @@ const getCitas = async () => {
     const urlget = `${config.api_host}/appointments/`
     const { data: response } = await axios.get(urlget, { headers })
     console.log(response);
-    citas.value = response.info.filter(x => x.idUser === data.info._id)
+
+    if (type === 'Barber'){
+        citas.value = response.info.filter(x => x.idBarber === data.info._id)
+    }else{
+        citas.value = response.info.filter(x => x.idUser === data.info._id)
+    }
     console.log(citas.value);
 };
 
