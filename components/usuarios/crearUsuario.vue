@@ -125,10 +125,16 @@ const getBarbers = async () => {
 
 const guardarUsuario = async () => {
     try {
-        const users = await getUsers();
-        const barbers = await getBarbers();
-        const foundUser = users.find(user => user.email === new_user.value.email);
-        const foundBarber = barbers.find(barber => barber.email === new_user.value.email);
+/*         const users = await getUsers();
+        const barbers = await getBarbers(); */
+/*         const foundUser = users.find(user => user.email === new_user.value.email);
+        const foundBarber = barbers.find(barber => barber.email === new_user.value.email); */
+       /// Es esto hp
+        /*          const formData = new FormData()
+        formData.append("img", this.image[0])
+        const { data } = await axios.post(`${url}/${infoUser._id}`, formData)
+        */
+
         if (foundUser || foundBarber) {
             errorMessage.value= '<strong>Email already exists</strong>';
         } else {
@@ -150,7 +156,7 @@ const guardarUsuario = async () => {
         }
     } catch (error) {
         console.error(error);
-        mostrarError('Error saving the user. Please try again later.');
+        errorMessage.value= '<strong>Email already exists</strong>';
     }
 };
 

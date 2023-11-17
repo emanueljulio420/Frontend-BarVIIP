@@ -54,18 +54,17 @@ const login = async () => {
     const url = `${config.api_host}/auth`
     const { data } = await axios.post(url, { email: email.value, password: password.value })
     if (data?.ok) {
-      console.log(data?.info);
       Swal.fire(
         'Welcome',
         `${data?.message}`,
         'success'
       );
-      if (data?.info.tyoe === "User") {
-        localStorage.setItem = ('TOKEN',data?.info.token) 
-        router.push({ path: "/agenda" });
-      } else {
-        localStorage.setItem = ('TOKEN',data?.info.token) 
+      if (data?.info.type === "User") {
+        sessionStorage.setItem("TOKEN",data?.info.token) 
         router.push({ path: "/reservas" });
+      } else {
+        sessionStorage.setItem("TOKEN",data?.info.token) 
+        router.push({ path: "/agenda" });
       }
     } else {
       Swal.fire({

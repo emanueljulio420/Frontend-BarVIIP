@@ -20,6 +20,8 @@
 <script setup>
 
 import axios from 'axios';
+import { getHeaders } from "../../src/auth/jwt";
+import config from '../config/default.json'
 
 const openD = ref(false);
 const agendarBarber = ref({})
@@ -31,8 +33,12 @@ onBeforeMount(() => {
 });
 
 const getBarbers = async () => {
-    const { data } = await axios.get('http://localhost:3001/barberos');
-    barbers.value = data
+
+    const token = sessionStorage.getItem("TOKEN")
+    const headers = getHeaders(token)
+    const url = `${config.api_host}/barbers`
+    const { data } = await axios.get(url, { headers });
+    barbers.value = data.info
 };
 
 const agendar = (barbero) => {

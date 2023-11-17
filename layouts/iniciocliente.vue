@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar class="toolbar primary toolbar" dark prominent height="50%">
+        <v-toolbar class="toolbar primary toolbar" dark prominent height="50%" v-if="!loading">
 
             <v-toolbar-title>
                 <v-img width="10vh" src="https://th.bing.com/th/id/OIG..bsrCO8FXIZrYA0W4fUL?pid=ImgGn">
@@ -45,6 +45,22 @@
     </div>
 </template>
 <script setup>
+ import axios from 'axios';
+
+onBeforeMount( async ()=>{
+  const token = sessionStorage.getItem("TOKEN");
+  if (token) {
+        loading.value = true
+        const url = `${config.api_host}/verify`
+        axios.post(url, { token }).then(()=>{
+            loading.value = false
+        }).catch(
+            useRouter().push('/inicio-sesion')
+        );
+    }else{
+        useRouter().push('/inicio-sesion')
+    }
+})
 
 </script>
 
@@ -53,11 +69,6 @@ import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccount } from '@mdi/js';
 import { mergeProps } from 'vue'
 
-onBeforeMount(()=>{
-  console.log(localStorage);
-  const token = localStorage.getItem('TOKEN');
-  console.log(token);
-})
 
 export default {
     name: "my-cool-component",

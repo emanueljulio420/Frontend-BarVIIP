@@ -81,7 +81,7 @@ const getCitas = async () => {
         return response.data;
     } catch (error) {
         console.error('Error getting users:', error);
-        throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
+        throw error; 
     }
 }
 
