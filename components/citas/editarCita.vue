@@ -18,7 +18,7 @@
                                 <v-text-field v-model="new_cita.address" :rules="[rules.required]" label="Address"
                                     variant="outlined" cols="6" />
                             </v-col>
-                            <v-col cols="12" class="red" v-html="errorMessage"/>
+                            <v-col cols="12" class="red" v-html="errorMessage" />
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
                                     Update
@@ -81,15 +81,22 @@ const guardarCita = async () => {
         const headers = getHeaders(token);
         console.log(new_cita.value);
         const url = `${config.api_host}/appointments/${new_cita.value._id}`
-        console.log(url);
-        const response = await axios.put(url, new_cita.value , { headers })
+        const cita_new = {
+            idBarber: new_cita.value.idBarber,
+            idUser: new_cita.value.idUser,
+            hour: new_cita.value.hour,
+            date: new_cita.value.date,
+            address: new_cita.value.address,
+            nameBarber: new_cita.value.nameBarber
+        }
+        const response = await axios.put(url, cita_new, { headers })
         console.log(response);
-            closeDialog();
-            Swal.fire(
-                'Appointment updated successfully!',
-                'Congratulations',
-                'success'
-            );
+        closeDialog();
+        Swal.fire(
+            'Appointment updated successfully!',
+            'Congratulations',
+            'success'
+        );
     } catch (error) {
         errorMessage.value = `<strong>Error saving appointment. Please try again later.</strong>`
     }
@@ -104,7 +111,7 @@ const closeDialog = () => {
 <script>
 export default {
     data() {
-        return {            
+        return {
             show1: false,
             show2: true,
             rules: {
@@ -116,8 +123,7 @@ export default {
 </script>
 
 <style scoped>
-.red{
+.red {
     color: red;
 }
-
 </style>
