@@ -68,7 +68,7 @@ const open = ref()
 
 const errorMessage = ref()
 
-const new_user = ref({ name: "Hola", lastName: "Juanes", type: "Client", email: "golalsdaada@gmail.com", password: "sebastian", confirmPassword: "sebastian" })
+const new_user = ref({})
 
 const emit = defineEmits(['close'])
 
