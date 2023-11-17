@@ -28,7 +28,7 @@
                             <NuxtLink to="/barber" class="black toolbar-link">My profile</Nuxtlink>
                         </v-list-item-title>
                         <v-list-item-title class="mx-3 my-1">
-                            <NuxtLink to="/" class="black toolbar-link">Leave</Nuxtlink>
+                            <NuxtLink @click="salir" class="black toolbar-link">Leave</Nuxtlink>
                         </v-list-item-title>
                     </v-list>
                 </v-menu>
@@ -62,6 +62,12 @@ onBeforeMount( async ()=>{
         useRouter().push('/inicio-sesion')
     }
 })
+
+const salir = ()=>{
+    sessionStorage.setItem("TOKEN","")
+    sessionStorage.setItem("TYPE","")
+    useRouter().push('/inicio-sesion')
+}
 
 </script>
 

@@ -22,12 +22,11 @@
           <v-row>
             <v-col cols="6">
               <v-btn class="custom-button" type="submit">
-                Loginnnnn
+                Login
               </v-btn>
             </v-col>
             <v-col cols="6">
-              <v-btn @click="openDialog()">
-                <svg-icon type="mdi" :path="path" />
+              <v-btn @click="openDialog()" density="default">
                 Create profile
               </v-btn>
             </v-col>
