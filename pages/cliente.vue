@@ -127,13 +127,16 @@ const deleteCliente = async () => {
 
             const id = data.info._id;
             const url = `${config.api_host}/users/${id}`;
-            const url2 = `${config.api_host}/users/delete/${id}`
-            let filter = {
-                idUser: id
-            }
+
             // Realizar la solicitud DELETE con await
             const response = await axios.delete(url, { headers });
-            const response2 = await axios.delete(url2,filter, {headers})
+
+            const urlget = `${config.api_host}/appointments/`
+            const { data: otro } = await axios.get(urlget, { headers })
+            citas.value = otro.filter(cita => cita.idUser === id)
+            citas.value.map(cita => axios.delete(`${config.api_host}/appointments/${cita._id}`));
+
+
             Swal.fire('Delete!', '', 'success');
             router.push({ path: '/' });
         }

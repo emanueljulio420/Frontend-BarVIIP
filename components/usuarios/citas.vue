@@ -80,20 +80,9 @@ const getCitas = async () => {
     const type = sessionStorage.getItem("TYPE")
     const headers = getHeaders(token)
     const urlget = `${config.api_host}/appointments/`
-    if (type === 'User') {
-        let filter = {
-            idUser: data.info._id
-        }
-        const { data: response } = await axios.get(urlget, filter, { headers })
-        citas.value = response.info
-    }
-    else {
-        let filter = {
-            idBarber: data.info._id
-        }
-        const { data: response } = await axios.get(urlget, filter, { headers })
-        citas.value = response.info
-    }
+    const { data: response } = await axios.get(urlget, { headers })
+    console.log(response);
+    citas.value = response.info.filter(x => x.idUser === data.info._id)
     console.log(citas.value);
 };
 
