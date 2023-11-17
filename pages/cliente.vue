@@ -90,7 +90,7 @@ const info = async () => {
     try {
         const token = sessionStorage.getItem("TOKEN")
         const url = `${config.api_host}/verify`
-        const { data } = await axios.post(url, {token})
+        const { data } = await axios.post(url, { token })
         if (data.ok == false) {
             throw {
                 message: data.message
@@ -121,17 +121,19 @@ const deleteCliente = async () => {
             const token = sessionStorage.getItem("TOKEN");
             const headers = getHeaders(token);
             const url_very = `${config.api_host}/verify`;
-            
+
             // Realizar la solicitud POST con await
             const { data } = await axios.post(url_very, { token });
-            console.log("Entre");
-            console.log(data);
 
             const id = data.info._id;
             const url = `${config.api_host}/users/${id}`;
-
+            const url2 = `${config.api_host}/users/delete/${id}`
+            let filter = {
+                idUser: id
+            }
             // Realizar la solicitud DELETE con await
             const response = await axios.delete(url, { headers });
+            const response2 = await axios.delete(url2,filter, {headers})
             Swal.fire('Delete!', '', 'success');
             router.push({ path: '/' });
         }
