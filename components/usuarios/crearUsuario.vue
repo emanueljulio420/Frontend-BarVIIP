@@ -11,7 +11,7 @@
                                     placeholder="Names" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="new_user.lastname" :rules="[rules.required]" label="Lastnames"
+                                <v-text-field v-model="new_user.lastName" :rules="[rules.required]" label="Lastnames"
                                     placeholder="Lastnames" variant="outlined" />
                             </v-col>
                             <v-col cols="12">
@@ -19,29 +19,26 @@
                                     label="Type of user" placeholder="Select..."></v-autocomplete>
                             </v-col>
                             <v-col cols="12">
-                                <v-file-input v-model="new_user.image" :rules="[rules.required,rules.image]"
-                                    accept="image/*" placeholder="Enter your photo"
-                                    prepend-icon="mdi-camera" label="Photo"></v-file-input>
+                                <v-file-input v-model="new_user.image" :rules="[rules.required, rules.image]"
+                                    accept="image/*" placeholder="Enter your photo" prepend-icon="mdi-camera"
+                                    label="Photo"></v-file-input>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]"
-                                    label="Email" variant="outlined" cols="6" />
+                                <v-text-field v-model="new_user.email" :rules="[rules.required, rules.email]" label="Email"
+                                    variant="outlined" cols="6" />
                             </v-col>
                             <v-col cols="6">
-                                <v-text-field v-model="new_user.password"
-                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
-                                    :type="show1 ? 'text' : 'password'" hint="Minimum 8 characters" counter
-                                    @click:append="show1 = !show1" label="Password" placeholder="Password"
-                                    variant="outlined" />
+                                <v-text-field v-model="new_user.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'"
+                                    hint="Minimum 8 characters" counter @click:append="show1 = !show1" label="Password"
+                                    placeholder="Password" variant="outlined" />
                             </v-col>
                             <v-col cols="6">
-                                <v-text-field v-model="new_user.confipassword"
-                                    :rules="[rules.required, rules.min]"
-                                    type="password"
-                                    hint="Minimum 8 characters" counter label="Confirm Password"
+                                <v-text-field v-model="new_user.confirmPassword" :rules="[rules.required, rules.min]"
+                                    type="password" hint="Minimum 8 characters" counter label="Confirm Password"
                                     placeholder="Confirm Password" variant="outlined" />
                             </v-col>
-                            <v-col cols="12" class="red" v-html="errorMessage"/>
+                            <v-col cols="12" class="red" v-html="errorMessage" />
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
                                     Register
@@ -56,7 +53,7 @@
                             </v-col>
                         </v-row>
                     </v-container>
-                    
+
                 </v-form>
             </v-card>
         </v-dialog>
@@ -65,14 +62,13 @@
 <script setup>
 import axios from 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/dist/sweetalert2.min.css';
-
+import config from '../../config/default.json'
 
 const open = ref()
 
 const errorMessage = ref()
 
-const new_user = ref({})
+const new_user = ref({ name: "Hola", lastName: "Juanes", type: "Client", email: "golalsdaada@gmail.com", password: "sebastian", confirmPassword: "sebastian" })
 
 const emit = defineEmits(['close'])
 
@@ -88,75 +84,71 @@ onBeforeMount(() => {
 });
 
 const handleSubmit = async (form) => {
-  const { valid } = await form.validate();
-  if (!valid) {
-    return;
-  }
-  await guardarUsuario();
-};
-
-const mostrarError = (mensaje) => {
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: mensaje,
-  });
-};
-
-const getUsers = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/usuarios');
-    return response.data;
-  } catch (error) {
-    console.error('Error getting users:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-  }
-};
-
-const getBarbers = async () => {
-  try {
-    const response = await axios.get('http://localhost:3001/barberos');
-    return response.data;
-  } catch (error) {
-    console.error('Error getting users:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-  }
+    const { valid } = await form.validate();
+    if (!valid) {
+        return;
+    }
+    await guardarUsuario();
 };
 
 const guardarUsuario = async () => {
     try {
-/*         const users = await getUsers();
-        const barbers = await getBarbers(); */
-/*         const foundUser = users.find(user => user.email === new_user.value.email);
-        const foundBarber = barbers.find(barber => barber.email === new_user.value.email); */
-       /// Es esto hp
-        /*          const formData = new FormData()
-        formData.append("img", this.image[0])
-        const { data } = await axios.post(`${url}/${infoUser._id}`, formData)
-        */
-
-        if (foundUser || foundBarber) {
-            errorMessage.value= '<strong>Email already exists</strong>';
-        } else {
-            if (new_user.value.password === new_user.value.confipassword) {
-                if(new_user.value.type === 'Barber'){
-                    await axios.post("http://localhost:3001/barberos", new_user.value);
-                }else{
-                    await axios.post("http://localhost:3001/usuarios", new_user.value);
-                }
-                closeDialog();
+        let url = ""
+        const formData = new FormData()
+        formData.append("img", new_user.value.image[0])
+        console.log(new_user.value)
+        if (new_user.value.type === "Barber") {
+            delete new_user.value.image
+            delete new_user.value.type
+            url = `${config.api_host}/barbers`
+            const { data } = await axios.post(url, new_user.value);
+            console.log(data)
+            console.log(data.ok)
+            if (data.ok == true) {
+                const id = data.info._id
+                const url_image = `${config.api_host}/barbers/${id}/image`
+                const { data_image } = await axios.post(url_image, formData)
+                closeDialog()
                 Swal.fire(
-                    'Successfully created account!',
-                    'Congratulations'
+                    'Congratulations',
+                    `${data?.message}`,
+                    'success'
                 );
-                
-            } else {
-                mostrarError('Passwords are not equal');
             }
+            else {
+                errorMessage.value = `<strong>${data.message}</strong>`
+                console.log("error", data.message)
+            }
+
         }
+        else { 
+            delete new_user.value.image
+            delete new_user.value.type
+            url = `${config.api_host}/users`
+            const { data } = await axios.post(url, new_user.value);
+            if (data.ok == true) {
+                const id = data.info._id
+                const url_image = `${config.api_host}/users/${id}/image`
+                const { data_image } = await axios.post(url_image, formData)
+                closeDialog()
+                Swal.fire(
+                    'Congratulations',
+                    `${data?.message}`,
+                    'success'
+                );
+            }
+            else {
+                errorMessage.value = `<strong>${data.message}</strong>`
+                console.log("error", data.message)
+            }
+
+        }
+
+
+
     } catch (error) {
         console.error(error);
-        errorMessage.value= '<strong>Email already exists</strong>';
+        errorMessage.value = '<strong>Email already exists</strong>';
     }
 };
 
@@ -201,8 +193,8 @@ export default {
     color: black;
     /* Color del texto dentro de la carta */
 }
-.red{
+
+.red {
     color: red;
 }
-
 </style>
