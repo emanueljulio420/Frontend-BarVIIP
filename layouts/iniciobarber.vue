@@ -42,30 +42,27 @@
     </div>
 </template>
 <script setup>
+
 import axios from 'axios';
 
-const user = ref();
+import config from '../config/default.json'
+const loading = ref()
 
-const router = useRouter();
-
-onBeforeMount(() => {
-    if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
+onBeforeMount( async ()=>{
+  const token = sessionStorage.getItem("TOKEN");
+  if (token) {
+        loading.value = true
+        const url = `${config.api_host}/verify`
+        axios.post(url, { token }).then(()=>{
+            loading.value = false
+        }).catch(
+            useRouter().push('/agenda')
+        );
+    }else{
+        useRouter().push('/inicio-sesion')
     }
+})
 
-});
-
-const deleteUser = async (item) => {
-    console.log(item.value)
-    const url = `http://localhost:3001/usuarios/${item.id}`
-    const { data } = await axios.delete(url)
-    console.log(data.value)
-    router.push({ path: '/' });
-    
-}
 </script>
 
 <script>

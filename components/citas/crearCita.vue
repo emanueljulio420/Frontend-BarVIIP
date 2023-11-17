@@ -18,7 +18,7 @@
                                 <v-text-field v-model="new_cita.address" :rules="[rules.required]" label="Address"
                                     variant="outlined" cols="6" />
                             </v-col>
-                            <v-col cols="12" class="red" v-html="errorMessage"/>
+                            <v-col cols="12" class="red" v-html="errorMessage" />
                             <v-col cols="6">
                                 <v-btn class="text-none" color="#616161" variant="flat" type="submit" size="large" block>
                                     Agendar
@@ -39,11 +39,12 @@
     </div>
 </template>
 <script setup>
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import axios from 'axios';
 
-const user = ref()
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import axios from 'axios';
+import config from '../../config/default.json'
+import { getHeaders } from "../../src/auth/jwt";
+
 const new_cita = ref({})
 const open = ref()
 const barber = ref({})
@@ -61,29 +62,21 @@ const props = defineProps({
     }
 })
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
     open.value = props.dialog
     barber.value = props.barbero
-    new_cita.value.idBarbero = barber.value.id
+
+    new_cita.value.idBarber = barber.value._id
     new_cita.value.nameBarber = barber.value.name
 
     if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
+        const token = sessionStorage.getItem("TOKEN");
+        const url = `${config.api_host}/verify`
+        const { data } = await axios.post(url, { token })
+        new_cita.value.idUser = data.info._id
     }
 });
 
-const getCitas = async () => {
-    try {
-        const response = await axios.get('http://localhost:3001/citas');
-        return response.data;
-    } catch (error) {
-        console.error('Error getting users:', error);
-        throw error; 
-    }
-}
 
 const handleSubmit = async (form) => {
     const { valid } = await form.validate();
@@ -95,36 +88,23 @@ const handleSubmit = async (form) => {
 
 const guardarCita = async () => {
     try {
-        const citas = await getCitas();
-        const foundCita = citas.find(cita => cita.idBarbero === new_cita.value.idBarbero && cita.date === new_cita.value.date);
-        new_cita.value.idCliente = user.value.id 
+        const token = sessionStorage.getItem("TOKEN");
+        const headers = getHeaders(token);
         console.log(new_cita.value);
-        if (foundCita) {
-            errorMessage.value= '<strong>Appointment already scheduled</strong>';
-        } else {
-            console.log('entre');
-            await axios.post("http://localhost:3001/citas", new_cita.value);
-            closeDialog();
-            Swal.fire(
-                'Appointment created successfully!',
-                'Congratulations',
-                'success'
-            );
-        }
+        const url = `${config.api_host}/appointments/`
+        const response = await axios.post(url, new_cita.value , { headers })
+        console.log(response);
+        closeDialog();
+        Swal.fire(
+            'Appointment created successfully!',
+            'Congratulations',
+            'success'
+        );
     } catch (error) {
         console.error(error);
-        mostrarError('Error saving user. Please try again later.');
+        errorMessage.value = '<strong>Error saving appointment. Please try again later.</strong>'
     }
 }
-
-const mostrarError = (mensaje) => {
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: mensaje,
-  });
-};
-
 const closeDialog = () => {
     open.value = false
     emit('close')
@@ -134,7 +114,7 @@ const closeDialog = () => {
 <script>
 export default {
     data() {
-        return {            
+        return {
             show1: false,
             show2: true,
             rules: {
@@ -146,7 +126,7 @@ export default {
 </script>
 
 <style scoped>
-.red{
+.red {
     color: red;
 }
 </style>

@@ -45,7 +45,10 @@
     </div>
 </template>
 <script setup>
- import axios from 'axios';
+import axios from 'axios';
+
+import config from '../config/default.json'
+const loading = ref()
 
 onBeforeMount( async ()=>{
   const token = sessionStorage.getItem("TOKEN");
@@ -55,7 +58,7 @@ onBeforeMount( async ()=>{
         axios.post(url, { token }).then(()=>{
             loading.value = false
         }).catch(
-            useRouter().push('/inicio-sesion')
+            useRouter().push('/reservas')
         );
     }else{
         useRouter().push('/inicio-sesion')

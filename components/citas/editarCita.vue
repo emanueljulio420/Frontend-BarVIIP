@@ -39,11 +39,12 @@
     </div>
 </template>
 <script setup>
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import axios from 'axios';
 
-const user = ref()
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import axios from 'axios';
+import config from '../../config/default.json'
+import { getHeaders } from "../../src/auth/jwt";
+
 const new_cita = ref({})
 const open = ref()
 const errorMessage = ref()
@@ -63,24 +64,8 @@ const props = defineProps({
 onBeforeMount(() => {
     open.value = props.dialog
     new_cita.value = props.cita
-
-    if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
-    }
 });
 
-const getCitas = async () => {
-    try {
-        const response = await axios.get('http://localhost:3001/citas');
-        return response.data;
-    } catch (error) {
-        console.error('Error getting users:', error);
-        throw error; // Re-lanzar el error para que pueda ser manejado en otro lugar si es necesario
-    }
-}
 
 const handleSubmit = async (form) => {
     const { valid } = await form.validate();
@@ -92,35 +77,23 @@ const handleSubmit = async (form) => {
 
 const guardarCita = async () => {
     try {
-        const citas = await getCitas();
-        const foundCita = citas.find(cita => cita.idBarbero === new_cita.value.idBarbero && cita.date === new_cita.value.date && cita.id != new_cita.value.id);
+        const token = sessionStorage.getItem("TOKEN");
+        const headers = getHeaders(token);
         console.log(new_cita.value);
-        console.log(foundCita)
-        if (foundCita) {
-            errorMessage.value= '<strong>Appointment already scheduled</strong>';
-        } else {
-            await axios.put(`http://localhost:3001/citas/${new_cita.value.id}`, new_cita.value);
+        const url = `${config.api_host}/appointments/${new_cita.value._id}`
+        console.log(url);
+        const response = await axios.put(url, new_cita.value , { headers })
+        console.log(response);
             closeDialog();
             Swal.fire(
-            
                 'Appointment updated successfully!',
                 'Congratulations',
                 'success'
             );
-        }
     } catch (error) {
-        console.error(error);
-        mostrarError('Error saving user. Please try again later.');
+        errorMessage.value = `<strong>Error saving appointment. Please try again later.</strong>`
     }
 }
-
-const mostrarError = (mensaje) => {
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: mensaje,
-  });
-};
 
 const closeDialog = () => {
     open.value = false
