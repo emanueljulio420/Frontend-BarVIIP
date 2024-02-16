@@ -8,7 +8,7 @@
                         <v-img :src='barber.img.slice()' height="400" width="auto" cover />
                         <v-card-title>{{ barber.name }}</v-card-title>
                         <v-card-actions>
-                            <v-btn color="red" variant="flat" @click="agendar(barber)" block>Scheule</v-btn>
+                            <v-btn color="red" variant="flat" @click="agendar(barber)" block>Schedule</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
