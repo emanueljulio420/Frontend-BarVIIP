@@ -52,6 +52,7 @@ const login = async () => {
   try {
     const url = `${config.api_host}/auth`
     const { data } = await axios.post(url, { email: email.value, password: password.value })
+    console.log("Data", data)
     if (data?.ok) {
       Swal.fire(
         'Welcome',
