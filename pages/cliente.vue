@@ -64,7 +64,7 @@
   
 <script setup>
 
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from '../config/default.json'
 import { getHeaders } from "../src/auth/jwt.js";
@@ -144,25 +144,6 @@ const deleteCliente = async () => {
         Swal.fire('Error', 'There was an error deleting the user', 'error');
     }
 };
-/* const deleteCliente = async () => {
-    const { data } = await axios.get(`http://localhost:3001/citas`)
-    Swal.fire({
-        icon: 'question',
-        title: 'Are you sure about deleting the profile ?',
-        showDenyButton: true,
-        denyButtonColor: '#8F8F8F',
-        confirmButtonText: 'Yes',
-    }).then((result) => {
-        if (result.isConfirmed) {
-
-            citas.value = data.filter(cita => cita.idCliente === user.value.id)
-            citas.value.map(cita => axios.delete(`http://localhost:3001/citas/${cita.id}`));
-            axios.delete(`http://localhost:3001/usuarios/${user.value.id}`);
-            Swal.fire('Delete!', '', 'success')
-            router.push({ path: '/' });
-        }
-    });
-} */
 
 const openDialog = () => {
     openD.value = true;

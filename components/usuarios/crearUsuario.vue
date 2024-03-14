@@ -61,7 +61,7 @@
 </template>
 <script setup>
 import axios from 'axios';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2';
 import config from '../../config/default.json'
 
 const open = ref()

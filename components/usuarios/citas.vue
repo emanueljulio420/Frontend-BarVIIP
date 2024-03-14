@@ -58,7 +58,7 @@
 </template>
 <script setup>
 
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from '../../config/default.json'
 import { getHeaders } from "../../src/auth/jwt";
