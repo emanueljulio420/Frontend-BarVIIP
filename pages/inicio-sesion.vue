@@ -21,14 +21,10 @@
           </v-row>
           <v-row>
             <v-col cols="6">
-              <v-btn class="custom-button" type="submit">
-                Login
-              </v-btn>
+              <v-btn class="custom-button" type="submit"> Login </v-btn>
             </v-col>
             <v-col cols="6">
-              <v-btn @click="openDialog()" density="default">
-                Create profile
-              </v-btn>
+              <v-btn @click="openDialog()" density="default"> Create profile </v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -39,51 +35,50 @@
 </template>
 
 <script setup>
-
 import axios from "axios";
-import Swal from 'sweetalert2';
-import config from '../config/default.json'
-1
+import Swal from "sweetalert2";
+import config from "../config/default.json";
+1;
 const router = useRouter();
-const password = ref()
-const email = ref()
+const password = ref();
+const email = ref();
 
 const login = async () => {
   try {
-    const url = `${config.api_host}/auth`
-    const { data } = await axios.post(url, { email: email.value, password: password.value })
-    console.log("Data", data)
+    const url = `${config.api_host}/auth`;
+    const { data } = await axios.post(url, {
+      email: email.value,
+      password: password.value,
+    });
+    console.log("Data", data);
     if (data?.ok) {
-      Swal.fire(
-        'Welcome',
-        `${data?.message}`,
-        'success'
-      );
+      Swal.fire("Welcome", `${data?.message}`, "success");
       if (data?.info.type === "User") {
-        sessionStorage.setItem("TOKEN",data?.info.token)
-        sessionStorage.setItem("TYPE",data?.info.type) 
+        sessionStorage.setItem("TOKEN", data?.info.token);
+        sessionStorage.setItem("TYPE", data?.info.type);
         router.push({ path: "/reservas" });
       } else {
-        sessionStorage.setItem("TYPE",data?.info.type) 
-        sessionStorage.setItem("TOKEN",data?.info.token) 
+        sessionStorage.setItem("TYPE", data?.info.type);
+        sessionStorage.setItem("TOKEN", data?.info.token);
         router.push({ path: "/agenda" });
       }
-    } else {
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
       Swal.fire({
         title: "Oops...",
-        text: data?.message,
+        text: error.response.data.message, 
+        icon: "error",
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Not found api",
         icon: "error",
       });
     }
-  } catch (error) {
-    Swal.fire({
-      title: "Error",
-      text: "Not found api",
-      icon: "error",
-    });
   }
-}
-
+};
 const openD = ref(false);
 
 const openDialog = () => {
@@ -101,7 +96,6 @@ const handleSubmit = async (form) => {
   }
   await login();
 };
-
 </script>
 
 <script>
@@ -129,5 +123,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../styles/inicio.module.css"
+@import "../styles/inicio.module.css";
 </style>
