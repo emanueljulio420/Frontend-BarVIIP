@@ -61,7 +61,7 @@
         <UsuariosEditarUsuario v-if="openD" :dialog="openD" :edit_user="copy_user" @close="closeDialog" />
     </div>
 </template>
-  
+
 <script setup>
 
 import Swal from 'sweetalert2';
@@ -77,20 +77,13 @@ const citas = ref();
 
 onBeforeMount(async () => {
     await info()
-    /* if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
-    } */
-
 });
 
 const info = async () => {
     try {
         const token = sessionStorage.getItem("TOKEN")
         const url = `${config.api_host}/verify`
-        const { data } = await axios.post(url, {token})
+        const { data } = await axios.post(url, { token })
         if (data.ok == false) {
             throw {
                 message: data.message
@@ -121,7 +114,7 @@ const deleteCliente = async () => {
             const token = sessionStorage.getItem("TOKEN");
             const headers = getHeaders(token);
             const url_very = `${config.api_host}/verify`;
-            
+
             // Realizar la solicitud POST con await
             const { data } = await axios.post(url_very, { token });
             console.log("Entre");
@@ -150,6 +143,8 @@ const openDialog = () => {
     copy_user.value = { ...user.value }
     console.log(copy_user.value);
 
+    console.log("Opend " + openD.value)
+
 };
 const closeDialog = () => {
     openD.value = false;
@@ -160,7 +155,7 @@ definePageMeta({
 });
 
 </script>
-  
+
 <style>
 .centrar {
     display: flex;

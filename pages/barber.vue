@@ -75,12 +75,7 @@ const citas = ref();
 
 onBeforeMount(async() => {
     await info()
-    /* if (process.client) {
-        const userData = sessionStorage.getItem("USER");
-        if (userData) {
-            user.value = JSON.parse(userData);
-        }
-    } */
+
 });
 
 const info = async () => {
@@ -143,6 +138,7 @@ const openDialog = () => {
     openD.value = true;
     copy_user.value = { ...user.value }
     console.log(copy_user.value);
+    console.log("Hola?")
 
 };
 const closeDialog = () => {
