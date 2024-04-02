@@ -8,10 +8,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "jest --transformIgnorePatterns 'node_modules/(?!(nuxt)/)' --coverage"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.3",
+    "@babel/preset-env": "^7.24.3",
     "@nuxt/devtools": "latest",
+    "@vue/test-utils": "^2.4.5",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
     "json-server": "^0.17.4",
     "nuxt": "^3.7.4",
     "vue": "^3.3.4",
