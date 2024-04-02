@@ -2,7 +2,7 @@
     <div class="centrar container">
         <v-container class="my-3">
             <v-card class="rounded-lg mx-auto" max-width="600">
-                <v-img class="my-6 rounded-circle centrar-imagen" width="250" height="250" :src='user.img.slice()' cover/>
+                <v-img class="my-6 rounded-circle centrar-imagen" width="250" height="250" :src='user && user.img ? user.img.slice() : ""' cover />
                 <v-card-title>My Profile</v-card-title>
                 <v-container>
                     <v-row no-gutters>
